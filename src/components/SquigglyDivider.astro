@@ -1,0 +1,48 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['squiggly-divider', className]}>
+  <svg viewBox="0 0 1000 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <!-- Hand-drawn squiggly line with red accent -->
+    <path
+      d="M0 40 C30 40, 40 20, 60 25 C80 30, 70 50, 90 45 C110 40, 100 15, 130 20 C160 25, 150 45, 180 40 C210 35, 200 20, 240 25 C280 30, 270 40, 310 38 C350 36, 340 30, 380 32 C420 34, 410 28, 450 30"
+      stroke="var(--color-black)"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      fill="none"
+    />
+    <path
+      d="M450 30 C490 32, 480 26, 520 28 C560 30, 550 35, 590 33 C630 31, 620 28, 660 30"
+      stroke="var(--color-coral)"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      fill="none"
+    />
+    <path
+      d="M660 30 C700 32, 690 28, 730 30 C770 32, 760 28, 800 30 C840 32, 830 30, 870 30 C910 30, 900 30, 940 30 C960 30, 970 30, 1000 30"
+      stroke="var(--color-black)"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      fill="none"
+    />
+  </svg>
+</div>
+
+<style>
+  .squiggly-divider {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .squiggly-divider svg {
+    width: 100%;
+    height: auto;
+  }
+</style>

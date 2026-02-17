@@ -1,0 +1,169 @@
+---
+const navLinks = [
+  { label: 'Framework', href: '#framework' },
+  { label: 'Templates', href: '#templates' },
+  { label: 'Coaching', href: '#coaching' },
+  { label: 'Connect', href: '#connect' },
+];
+---
+
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="navbar-logo">Language Layouts</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbar-links" id="navbar-links">
+      {navLinks.map((link) => (
+        <a href={link.href} class="navbar-link">{link.label.toUpperCase()}</a>
+      ))}
+    </div>
+
+    <a href="#templates" class="btn navbar-cta">GET TEMPLATES</a>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: border-color 0.3s;
+    border-bottom: 1px solid transparent;
+  }
+
+  .navbar.scrolled {
+    border-bottom-color: var(--color-border);
+  }
+
+  .navbar-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-logo {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 32px;
+  }
+
+  .navbar-link {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--color-gray-dark);
+    transition: color 0.2s;
+  }
+
+  .navbar-link:hover {
+    color: var(--color-black);
+  }
+
+  .navbar-cta {
+    padding: 8px 20px;
+    font-size: 0.75rem;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-black);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .navbar-links {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      flex-direction: column;
+      padding: 24px;
+      gap: 20px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .navbar-links.open {
+      display: flex;
+    }
+
+    .navbar-cta {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar')!;
+  const hamburger = document.getElementById('hamburger')!;
+  const links = document.getElementById('navbar-links')!;
+
+  // Scroll border
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Hamburger toggle
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    links.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', links.classList.contains('open').toString());
+  });
+
+  // Close menu on link click
+  links.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      links.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

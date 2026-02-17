@@ -1,0 +1,75 @@
+---
+import ConnectCard from './ConnectCard.astro';
+import { connectLinks } from '../data/templates';
+---
+
+<section class="stay-connected" id="connect">
+  <div class="container stay-connected-grid">
+    <div class="stay-connected-text reveal">
+      <div class="teal-accent"></div>
+      <h2 class="connected-heading">Stay<br />Connected</h2>
+      <p class="connected-description">
+        Join the community of learners and
+        educators building better systems for
+        language mastery.
+      </p>
+    </div>
+
+    <div class="connect-cards reveal-stagger">
+      {connectLinks.map((link) => (
+        <div class="reveal">
+          <ConnectCard icon={link.icon} title={link.title} subtitle={link.subtitle} href={link.href} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stay-connected-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .teal-accent {
+    width: 40px;
+    height: 4px;
+    background: var(--color-teal);
+    margin-bottom: 20px;
+  }
+
+  .connected-heading {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .connected-description {
+    color: var(--color-gray);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .connect-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .stay-connected-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .connect-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

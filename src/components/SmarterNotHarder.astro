@@ -1,0 +1,291 @@
+---
+---
+
+<section class="smarter-section">
+  <div class="container">
+    <h2 class="section-title reveal">Smarter not Harder</h2>
+    <p class="section-subtitle reveal">
+      Learn smarter, not harder. Language Layouts templates are designed
+      around proven learning principles — retrieval practice, spacing, elaboration,
+      generation, and desirable difficulty.
+    </p>
+
+    <div class="comparison-widget reveal">
+      <div class="comparison-slider" id="comparison-slider">
+        <!-- Smarter image (background, full width) -->
+        <div class="slider-img slider-img-smarter">
+          <img src="/images/smarter-illustration.png" alt="Smarter learning — focused, effective study" draggable="false" />
+        </div>
+
+        <!-- Harder image (foreground, clipped by slider) -->
+        <div class="slider-img slider-img-harder" id="slider-harder">
+          <img src="/images/learner-illustration.png" alt="Harder learning — overwhelmed, repetitive study" draggable="false" />
+        </div>
+
+        <!-- Label inside the card — switches based on slider position -->
+        <span class="slider-label slider-label-harder" id="slider-label-harder">HARDER</span>
+        <span class="slider-label slider-label-smarter" id="slider-label-smarter" style="display: none;">SMARTER</span>
+
+        <!-- Divider line + handle -->
+        <div class="slider-divider" id="slider-divider">
+          <div class="slider-line"></div>
+          <div class="slider-handle">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M6 10L2 10M2 10L5 7M2 10L5 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 10L18 10M18 10L15 7M18 10L15 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="comparison-labels">
+        <div class="comparison-label label-harder">
+          <span class="label-dot harder-dot"></span>
+          <div class="label-content">
+            <span class="label-title">Harder</span>
+            <span class="label-desc">Going over the same stuff again and again.</span>
+          </div>
+        </div>
+        <div class="comparison-label label-smarter">
+          <div class="label-content" style="text-align: right;">
+            <span class="label-title">Smarter</span>
+            <span class="label-desc">Using simple techniques that make your brain work a little better.</span>
+          </div>
+          <span class="label-dot smarter-dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparison-widget {
+    max-width: 700px;
+    margin: 40px auto 0;
+  }
+
+  .comparison-slider {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--color-white);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    cursor: ew-resize;
+    user-select: none;
+    -webkit-user-select: none;
+    margin-bottom: 24px;
+  }
+
+  .slider-img {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-white);
+  }
+
+  .slider-img img {
+    max-width: 60%;
+    max-height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .slider-img-harder {
+    clip-path: inset(0 0% 0 0);
+    z-index: 2;
+  }
+
+  .slider-img-smarter {
+    z-index: 1;
+  }
+
+  .slider-label {
+    position: absolute;
+    bottom: 20px;
+    z-index: 5;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .slider-label-harder {
+    left: 20px;
+    background: var(--color-black);
+    color: var(--color-white);
+    transition: opacity 0.3s;
+  }
+
+  .slider-label-smarter {
+    right: 20px;
+    background: var(--color-white);
+    color: var(--color-black);
+    border: 1px solid var(--color-border);
+    transition: opacity 0.3s;
+  }
+
+  .slider-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    z-index: 10;
+    width: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .slider-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-coral);
+  }
+
+  .slider-handle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-coral);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+    cursor: ew-resize;
+  }
+
+  .comparison-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .comparison-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .label-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .harder-dot {
+    background: var(--color-gray-dark);
+  }
+
+  .smarter-dot {
+    background: var(--color-coral);
+  }
+
+  .label-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .label-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+
+  .label-desc {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .comparison-labels {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .label-smarter .label-content {
+      text-align: left !important;
+    }
+  }
+</style>
+
+<script>
+  const slider = document.getElementById('comparison-slider');
+  const harderLayer = document.getElementById('slider-harder') as HTMLElement;
+  const divider = document.getElementById('slider-divider') as HTMLElement;
+  const labelHarder = document.getElementById('slider-label-harder') as HTMLElement;
+  const labelSmarter = document.getElementById('slider-label-smarter') as HTMLElement;
+
+  if (slider && harderLayer && divider) {
+    let isDragging = false;
+
+    function updateSlider(clientX: number) {
+      const rect = slider!.getBoundingClientRect();
+      let x = clientX - rect.left;
+      x = Math.max(0, Math.min(x, rect.width));
+      const pct = (x / rect.width) * 100;
+
+      harderLayer.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      divider.style.left = `${pct}%`;
+
+      // Show HARDER when mostly harder visible (>50%), SMARTER when mostly smarter
+      if (labelHarder && labelSmarter) {
+        if (pct > 50) {
+          labelHarder.style.display = '';
+          labelSmarter.style.display = 'none';
+        } else {
+          labelHarder.style.display = 'none';
+          labelSmarter.style.display = '';
+        }
+      }
+    }
+
+    slider.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      updateSlider(e.clientX);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      updateSlider(e.clientX);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Touch support
+    slider.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      updateSlider(e.touches[0].clientX);
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      updateSlider(e.touches[0].clientX);
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+  }
+</script>

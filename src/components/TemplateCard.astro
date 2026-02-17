@@ -1,0 +1,147 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  tags: { text: string; color: string }[];
+  image: string | null;
+}
+
+const { name, description, tags, image } = Astro.props;
+---
+
+<div class="template-card">
+  <div class="card-tags">
+    {tags.map((tag) => (
+      <span class="card-tag" style={`background-color: ${tag.color}`}>{tag.text}</span>
+    ))}
+  </div>
+
+  <div class="card-image">
+    {image ? (
+      <img src={`/images/${image}`} alt={`${name} template preview`} />
+    ) : (
+      <div class="card-image-placeholder">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="15" width="60" height="45" rx="4" stroke="#999" stroke-width="2.5" fill="none" />
+          <circle cx="28" cy="32" r="6" stroke="#999" stroke-width="2" fill="none" />
+          <path d="M10 50 L30 35 L45 48 L55 40 L70 55" stroke="#999" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    )}
+  </div>
+
+  <div class="card-nav">
+    <button class="card-arrow card-prev-inner" aria-label="Previous template">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+    <button class="card-arrow card-next-inner" aria-label="Next template">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </button>
+  </div>
+
+  <h3 class="card-name">{name}</h3>
+  <p class="card-description">{description}</p>
+</div>
+
+<style>
+  .template-card {
+    background: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    width: 340px;
+    flex-shrink: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .card-tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-white);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 254px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    background: var(--color-bg-hero, #f9f9f9);
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-image-placeholder {
+    width: 80px;
+    height: 80px;
+    opacity: 0.5;
+  }
+
+  .card-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .card-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  .card-arrow:hover {
+    border-color: var(--color-black);
+    background-color: var(--color-bg-hero);
+  }
+
+  .card-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .card-name {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .card-description {
+    color: var(--color-gray);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+</style>

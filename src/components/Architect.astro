@@ -1,0 +1,126 @@
+---
+---
+
+<section class="architect">
+  <div class="container architect-grid">
+    <div class="architect-text">
+      <span class="architect-badge reveal">THE ARCHITECT</span>
+      <h2 class="architect-heading reveal">
+        Laying Out The<br />Future Of Fluency
+      </h2>
+
+      <p class="architect-bio reveal">
+        Language Layouts was born from a simple observation: most language learners fail not
+        because they lack ability, but because they lack a system.
+      </p>
+      <p class="architect-bio reveal">
+        As a teacher and language learner, I've spent years refining the intersection of Paul Nation's
+        research and the science of learning.
+      </p>
+      <p class="architect-bio reveal">
+        These layouts take that research and make it practical, giving teachers and learners a balanced
+        approach to language that actually works.
+      </p>
+    </div>
+
+    <div class="architect-photo reveal">
+      <div class="photo-card">
+        <img src="/images/architect-photo.jpeg" alt="Language Layouts architect" />
+      </div>
+      <div class="photo-accent">
+        <svg viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 15 C15 10, 25 20, 35 15 C45 10, 55 20, 65 15 C70 12, 75 15, 80 13" stroke="var(--color-coral)" stroke-width="3" stroke-linecap="round" fill="none" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .architect {
+    padding-top: 60px;
+  }
+
+  .architect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .architect-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--color-white);
+    background: var(--color-coral);
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .architect-heading {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .architect-bio {
+    color: var(--color-gray);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .architect-photo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .photo-card {
+    width: 340px;
+    height: 400px;
+    background: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transform: rotate(3deg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-accent {
+    position: absolute;
+    bottom: -10px;
+    right: -20px;
+    width: 100px;
+  }
+
+  @media (max-width: 768px) {
+    .architect-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .architect-heading {
+      font-size: 2.2rem;
+    }
+
+    .photo-card {
+      width: 260px;
+      height: 300px;
+    }
+  }
+</style>

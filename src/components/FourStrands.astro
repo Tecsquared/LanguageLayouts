@@ -1,0 +1,258 @@
+---
+import { strands } from '../data/templates';
+---
+
+<section class="four-strands" id="framework">
+  <div class="container">
+    <h2 class="section-title reveal">'The Four Strands'</h2>
+    <p class="section-subtitle reveal">The research-backed framework behind every Language Layout.</p>
+
+    <div class="strands-content reveal">
+      <div class="strands-illustration">
+        <!-- Four rope strands SVG with individually colorable paths -->
+        <svg viewBox="0 0 280 420" xmlns="http://www.w3.org/2000/svg" class="rope-svg">
+          <!-- Strand 1: Meaning-Focused Input -->
+          <path
+            class="rope-strand"
+            data-strand-rope="input"
+            d="M40 0 C32 35, 48 70, 36 105 C24 140, 52 175, 40 210 C28 245, 50 280, 38 315 C26 350, 48 385, 40 420"
+            stroke="#bbb"
+            stroke-width="12"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <!-- Strand 2: Meaning-Focused Output -->
+          <path
+            class="rope-strand"
+            data-strand-rope="output"
+            d="M110 0 C118 35, 102 70, 114 105 C126 140, 98 175, 110 210 C122 245, 100 280, 112 315 C124 350, 102 385, 110 420"
+            stroke="#bbb"
+            stroke-width="12"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <!-- Strand 3: Language-Focused Learning -->
+          <path
+            class="rope-strand"
+            data-strand-rope="language"
+            d="M170 0 C162 35, 178 70, 166 105 C154 140, 182 175, 170 210 C158 245, 180 280, 168 315 C156 350, 178 385, 170 420"
+            stroke="#bbb"
+            stroke-width="12"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <!-- Strand 4: Fluency Development -->
+          <path
+            class="rope-strand"
+            data-strand-rope="fluency"
+            d="M240 0 C248 35, 232 70, 244 105 C256 140, 228 175, 240 210 C252 245, 230 280, 242 315 C254 350, 232 385, 240 420"
+            stroke="#bbb"
+            stroke-width="12"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+
+      <div class="strands-controls">
+        {strands.map((strand) => (
+          <div class="strand-group">
+            <button
+              class="strand-btn"
+              data-strand={strand.id}
+              data-color={strand.color}
+              aria-selected="false"
+            >
+              <span class="strand-dot"></span>
+              <span class="strand-name">{strand.name}</span>
+            </button>
+            <p
+              class="strand-desc"
+              data-strand-panel={strand.id}
+            >
+              {strand.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <p class="strands-hint reveal">Click on the strands or labels to explore each component of Paul Nation's framework.</p>
+  </div>
+</section>
+
+<style>
+  .four-strands {
+    padding-top: 60px;
+  }
+
+  .strands-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .strands-illustration {
+    width: 200px;
+  }
+
+  .rope-svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .rope-strand {
+    transition: stroke 0.4s ease;
+    cursor: pointer;
+  }
+
+  .strands-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .strand-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 0;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-black);
+    transition: opacity 0.2s;
+  }
+
+  .strand-btn:hover {
+    opacity: 0.8;
+  }
+
+  .strand-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--color-gray-dark);
+    flex-shrink: 0;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  .strand-btn.active .strand-dot {
+    border-color: transparent;
+  }
+
+  .strand-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .strand-desc {
+    display: none;
+    color: var(--color-gray);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding-left: 32px;
+    margin-top: 4px;
+  }
+
+  .strand-desc.active {
+    display: block;
+  }
+
+  .strands-hint {
+    text-align: center;
+    color: var(--color-gray-light);
+    font-size: 0.85rem;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 768px) {
+    .strands-content {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .strands-illustration {
+      margin: 0 auto;
+      width: 160px;
+    }
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-strand]');
+  const panels = document.querySelectorAll<HTMLElement>('[data-strand-panel]');
+  const ropes = document.querySelectorAll<SVGPathElement>('[data-strand-rope]');
+
+  let activeStrand: string | null = null;
+
+  function clearAll() {
+    buttons.forEach((btn) => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-selected', 'false');
+      const dot = btn.querySelector<HTMLElement>('.strand-dot');
+      if (dot) dot.style.backgroundColor = '';
+    });
+    panels.forEach((panel) => panel.classList.remove('active'));
+    ropes.forEach((rope) => {
+      rope.style.stroke = '#bbb';
+      rope.style.strokeWidth = '12';
+    });
+    activeStrand = null;
+  }
+
+  function toggleStrand(strandId: string) {
+    // If already active, deselect it
+    if (activeStrand === strandId) {
+      clearAll();
+      return;
+    }
+
+    activeStrand = strandId;
+
+    // Update buttons
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.strand === strandId;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive.toString());
+      const dot = btn.querySelector<HTMLElement>('.strand-dot');
+      if (dot) {
+        dot.style.backgroundColor = isActive ? btn.dataset.color! : '';
+      }
+    });
+
+    // Update description panels
+    panels.forEach((panel) => {
+      panel.classList.toggle('active', panel.dataset.strandPanel === strandId);
+    });
+
+    // Color the rope strands
+    ropes.forEach((rope) => {
+      if (rope.dataset.strandRope === strandId) {
+        const btn = document.querySelector<HTMLButtonElement>(`[data-strand="${strandId}"]`);
+        rope.style.stroke = btn?.dataset.color || '#bbb';
+        rope.style.strokeWidth = '16';
+      } else {
+        rope.style.stroke = '#bbb';
+        rope.style.strokeWidth = '12';
+      }
+    });
+  }
+
+  // Button click handlers
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => toggleStrand(btn.dataset.strand!));
+  });
+
+  // Rope click handlers
+  ropes.forEach((rope) => {
+    rope.addEventListener('click', () => toggleStrand(rope.dataset.strandRope!));
+  });
+</script>

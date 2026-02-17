@@ -1,0 +1,182 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Duplicate the template',
+    description: 'Start with a research-backed foundation. One click to add it to your Notion workspace.',
+    icon: 'copy',
+  },
+  {
+    number: '02',
+    title: 'Customise your space',
+    description: 'Adjust the layout for your specific language, level, and individual learning style.',
+    icon: 'settings',
+  },
+  {
+    number: '03',
+    title: 'Follow the structure',
+    description: 'Engage with built-in workflows designed to balance input, output, and fluency.',
+    icon: 'target',
+  },
+];
+---
+
+<section class="how-it-works" id="process">
+  <div class="container">
+    <h2 class="section-title reveal">How It Works</h2>
+    <p class="section-subtitle reveal">Three simple steps to low-friction mastery.</p>
+
+    <div class="steps reveal-stagger">
+      {steps.map((step, i) => (
+        <>
+          <div class="step reveal">
+            <div class="step-icon">
+              {step.icon === 'copy' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              )}
+              {step.icon === 'settings' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+              )}
+              {step.icon === 'target' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="6" />
+                  <circle cx="12" cy="12" r="2" />
+                </svg>
+              )}
+            </div>
+            <span class="step-number">{step.number}</span>
+            <h3 class="step-title">{step.title}</h3>
+            <p class="step-description">{step.description}</p>
+          </div>
+          {i < steps.length - 1 && (
+            <div class="step-arrow">
+              <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 12h50M42 4l10 8-10 8" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          )}
+        </>
+      ))}
+    </div>
+
+    <div class="low-friction-badge reveal">
+      <span class="badge-dot"></span>
+      <span class="badge-text">KEEPS IT LOW-FRICTION.</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 48px;
+  }
+
+  .step {
+    flex: 1;
+    max-width: 280px;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  .step-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(78, 205, 196, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    color: var(--color-teal);
+  }
+
+  .step-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .step-number {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-teal);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .step-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .step-description {
+    color: var(--color-gray);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .step-arrow {
+    flex-shrink: 0;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    padding-top: 28px;
+  }
+
+  .step-arrow svg {
+    width: 60px;
+    height: 24px;
+  }
+
+  .low-friction-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px 24px;
+    border: 1px solid var(--color-border);
+    border-radius: 50px;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-green);
+  }
+
+  .badge-text {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--color-gray-dark);
+  }
+
+  @media (max-width: 768px) {
+    .steps {
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .step-arrow {
+      transform: rotate(90deg);
+      padding-top: 0;
+    }
+  }
+</style>

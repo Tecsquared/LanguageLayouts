@@ -1,0 +1,105 @@
+---
+import TemplateCard from './TemplateCard.astro';
+import { services } from '../data/templates';
+---
+
+<section class="beyond-section" id="coaching">
+  <div class="container">
+    <h2 class="section-title reveal">Beyond the Templates</h2>
+    <p class="section-subtitle reveal">Extra support to take your learning or teaching to the next level.</p>
+  </div>
+
+  <div class="carousel-wrapper reveal" data-carousel="services">
+    <div class="carousel-3d-clip">
+      <div class="carousel-3d">
+        {services.map((s, i) => (
+          <div class="carousel-3d-item" data-index={i}>
+            <TemplateCard name={s.name} description={s.description} tags={s.tags} image={s.image} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="carousel-dots">
+      {services.map((_, i) => (
+        <button
+          class:list={['carousel-dot', { active: i === 0 }]}
+          data-dot={i}
+          aria-label={`Go to service ${i + 1}`}
+        ></button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .beyond-section {
+    /* overflow handled by .carousel-3d-clip so dots remain visible */
+  }
+
+  .carousel-3d-clip {
+    overflow: visible;
+  }
+
+  .beyond-section {
+    overflow: hidden;
+  }
+
+  .carousel-wrapper {
+    padding: 60px 0 40px;
+  }
+
+  .carousel-3d {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    perspective: 1900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-3d-item {
+    position: absolute;
+    width: 340px;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                z-index 0s 0.3s;
+    transform-style: preserve-3d;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-border);
+    cursor: pointer;
+    transition: background-color 0.3s, width 0.3s;
+    padding: 0;
+  }
+
+  .carousel-dot.active {
+    background: var(--color-coral);
+    width: 24px;
+    border-radius: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .carousel-3d {
+      height: 480px;
+      perspective: 1200px;
+    }
+
+    .carousel-3d-item {
+      width: 280px;
+    }
+  }
+</style>

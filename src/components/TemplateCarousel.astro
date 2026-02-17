@@ -1,0 +1,234 @@
+---
+import TemplateCard from './TemplateCard.astro';
+import { templates } from '../data/templates';
+---
+
+<section class="templates-section" id="templates">
+  <div class="container">
+    <h2 class="templates-heading reveal">Language Layouts</h2>
+    <p class="section-subtitle reveal">Research-backed Notion templates for learners and teachers.</p>
+  </div>
+
+  <div class="carousel-wrapper reveal" data-carousel="templates">
+    <div class="carousel-3d-clip">
+      <div class="carousel-3d">
+        {templates.map((t, i) => (
+          <div class="carousel-3d-item" data-index={i}>
+            <TemplateCard name={t.name} description={t.description} tags={t.tags} image={t.image} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="carousel-dots">
+      {templates.map((_, i) => (
+        <button
+          class:list={['carousel-dot', { active: i === 0 }]}
+          data-dot={i}
+          aria-label={`Go to template ${i + 1}`}
+        ></button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .templates-section {
+    /* overflow handled by .carousel-3d-clip so dots remain visible */
+  }
+
+  .carousel-3d-clip {
+    overflow: visible;
+  }
+
+  .templates-section {
+    overflow: hidden;
+  }
+
+  .templates-heading {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--color-black);
+    margin-bottom: 12px;
+  }
+
+  .carousel-wrapper {
+    padding: 60px 0 40px;
+  }
+
+  .carousel-3d {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    perspective: 1900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-3d-item {
+    position: absolute;
+    width: 340px;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                z-index 0s 0.3s;
+    transform-style: preserve-3d;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-border);
+    cursor: pointer;
+    transition: background-color 0.3s, width 0.3s;
+    padding: 0;
+  }
+
+  .carousel-dot.active {
+    background: var(--color-coral);
+    width: 24px;
+    border-radius: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .carousel-3d {
+      height: 480px;
+      perspective: 1200px;
+    }
+
+    .carousel-3d-item {
+      width: 280px;
+    }
+  }
+</style>
+
+<script>
+  function initCarousel3D(wrapper: HTMLElement) {
+    const container = wrapper.querySelector<HTMLElement>('.carousel-3d');
+    const items = wrapper.querySelectorAll<HTMLElement>('.carousel-3d-item');
+    const dots = wrapper.querySelectorAll<HTMLButtonElement>('.carousel-dot');
+
+    let currentIndex = 0;
+    const totalItems = items.length;
+
+    // 3D carousel settings
+    const radius = 380;         // translateZ distance
+    // Dynamic angle: use 36° for larger sets, wider angles for smaller sets
+    const angleStep = totalItems <= 3 ? 60 : totalItems <= 5 ? 45 : 36;
+
+    function updatePositions() {
+      items.forEach((item, i) => {
+        // Calculate shortest distance considering wrap-around
+        let offset = i - currentIndex;
+        if (offset > totalItems / 2) offset -= totalItems;
+        if (offset < -totalItems / 2) offset += totalItems;
+
+        const angle = offset * angleStep;
+        const absOffset = Math.abs(offset);
+
+        // Progressive scaling and opacity based on distance from center
+        let scale, opacity, zIndex;
+
+        if (absOffset === 0) {
+          scale = 1;
+          opacity = 1;
+          zIndex = 100;
+        } else if (absOffset === 1) {
+          scale = 0.67;
+          opacity = 0.76;
+          zIndex = 90;
+        } else if (absOffset === 2) {
+          scale = 0.60;
+          opacity = 0.66;
+          zIndex = 65;
+        } else if (absOffset === 3) {
+          scale = 0.52;
+          opacity = 0.54;
+          zIndex = 35;
+        } else {
+          scale = 0.45;
+          opacity = 0;
+          zIndex = 0;
+        }
+
+        item.style.transform = `rotateY(${angle}deg) translateZ(${radius}px) scale(${scale})`;
+        item.style.opacity = String(opacity);
+        item.style.zIndex = String(zIndex);
+
+        // Disable pointer events on non-active cards
+        if (absOffset === 0) {
+          item.style.pointerEvents = 'auto';
+        } else {
+          item.style.pointerEvents = 'none';
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function goToSlide(index: number) {
+      // Wrap around
+      currentIndex = ((index % totalItems) + totalItems) % totalItems;
+      updatePositions();
+    }
+
+    // Inner card arrow handlers
+    wrapper.querySelectorAll<HTMLButtonElement>('.card-prev-inner').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goToSlide(currentIndex - 1);
+      });
+    });
+    wrapper.querySelectorAll<HTMLButtonElement>('.card-next-inner').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goToSlide(currentIndex + 1);
+      });
+    });
+
+    // Dot handlers
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.dataset.dot || '0');
+        goToSlide(index);
+      });
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    container?.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    container?.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        goToSlide(currentIndex + (diff > 0 ? 1 : -1));
+      }
+    }, { passive: true });
+
+    // Initialize
+    updatePositions();
+
+    // Recalculate on resize
+    window.addEventListener('resize', () => updatePositions());
+  }
+
+  // Init all carousels on the page
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel3D);
+</script>

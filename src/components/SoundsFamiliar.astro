@@ -1,0 +1,88 @@
+---
+---
+
+<section class="sounds-familiar">
+  <div class="container">
+    <h2 class="section-title reveal">Sounds Familiar?</h2>
+    <div class="cards reveal-stagger">
+      <div class="problem-card reveal">
+        <div class="card-illustration" id="learner-illustration">
+          <img src="/images/learner-illustration.png" alt="Learner floating in space illustration" />
+        </div>
+        <h3 class="card-audience">For Learners</h3>
+        <p class="card-question">
+          Is your language learning leading to meaningful
+          progress or just points and streaks?
+        </p>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="card-illustration" id="teacher-illustration">
+          <img src="/images/teacher-illustration.png" alt="Teacher problem solving illustration" />
+        </div>
+        <h3 class="card-audience">For Teachers</h3>
+        <p class="card-question">
+          Are your lessons building complete language users
+          or just covering what's easiest to plan?
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sounds-familiar {
+    padding-top: 40px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .problem-card {
+    text-align: center;
+    padding: 40px 24px;
+  }
+
+  .card-illustration {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-illustration img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .card-audience {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+
+  .card-question {
+    color: var(--color-gray);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .cards {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>
