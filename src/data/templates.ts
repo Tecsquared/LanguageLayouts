@@ -153,24 +153,24 @@ export const connectLinks = [
     icon: 'notion',
     title: 'Notion Marketplace',
     subtitle: 'Get the templates',
-    href: 'https://notion.so',
+    href: 'https://www.notion.com/@languagelayouts',
   },
   {
     icon: 'youtube',
     title: 'YouTube',
     subtitle: 'Notion & Language Tutorials',
-    href: 'https://youtube.com',
+    href: 'https://www.youtube.com/@damienherlihy',
   },
   {
     icon: 'newsletter',
     title: 'Newsletter',
     subtitle: 'Stay in Touch',
-    href: 'https://languagelayouts.com',
+    href: 'https://damienherlihy.substack.com/',
   },
   {
     icon: 'contact',
     title: 'Contact Me',
     subtitle: 'Say Hello!',
-    href: 'mailto:hello@languagelayouts.com',
+    href: 'mailto:damienmherlihy@gmail.com',
   },
 ];

@@ -14,7 +14,7 @@ import { templates } from '../data/templates';
       <div class="carousel-3d">
         {templates.map((t, i) => (
           <div class="carousel-3d-item" data-index={i}>
-            <TemplateCard name={t.name} description={t.description} tags={t.tags} image={t.image} />
+            <TemplateCard name={t.name} description={t.description} tags={t.tags} image={t.image} href="https://www.notion.com/@languagelayouts" />
           </div>
         ))}
       </div>
@@ -43,6 +43,10 @@ import { templates } from '../data/templates';
 
   .templates-section {
     overflow: hidden;
+  }
+
+  .templates-section :global(.card-image) {
+    background: var(--color-white);
   }
 
   .templates-heading {
