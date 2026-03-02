@@ -10,7 +10,7 @@ interface Props {
 const { name, description, tags, image, href } = Astro.props;
 ---
 
-<div class="template-card">
+<a href={href || '#'} class="template-card" target="_blank" rel="noopener noreferrer">
   <div class="card-tags">
     {tags.map((tag) => (
       <span class="card-tag" style={`background-color: ${tag.color}`}>{tag.text}</span>
@@ -44,11 +44,9 @@ const { name, description, tags, image, href } = Astro.props;
     </button>
   </div>
 
-  <a href={href || '#'} class="card-link" target="_blank" rel="noopener noreferrer">
-    <h3 class="card-name">{name}</h3>
-    <p class="card-description">{description}</p>
-  </a>
-</div>
+  <h3 class="card-name">{name}</h3>
+  <p class="card-description">{description}</p>
+</a>
 
 <style>
   .template-card {
@@ -59,8 +57,14 @@ const { name, description, tags, image, href } = Astro.props;
     padding: 24px;
     width: 340px;
     flex-shrink: 0;
+    text-decoration: none;
+    color: inherit;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
                 opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .template-card:hover {
+    opacity: 0.85;
   }
 
   .card-tags {
@@ -135,17 +139,6 @@ const { name, description, tags, image, href } = Astro.props;
   .card-arrow svg {
     width: 16px;
     height: 16px;
-  }
-
-  .card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    transition: opacity 0.2s;
-  }
-
-  .card-link:hover {
-    opacity: 0.7;
   }
 
   .card-name {

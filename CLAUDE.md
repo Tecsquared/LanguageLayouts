@@ -8,6 +8,7 @@ Astro 5 static site for the Language Layouts marketing page — Notion templates
 
 - **GitHub:** `Tecsquared/LanguageLayouts` (public)
 - **Hosting:** Vercel (auto-deploys from GitHub pushes)
+- **Live site:** https://www.languagelayouts.com/
 - **Owner:** Damien Herlihy (damienmherlihy@gmail.com)
 
 ## Tech Stack

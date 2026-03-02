@@ -204,12 +204,14 @@ import { templates } from '../data/templates';
     // Inner card arrow handlers
     wrapper.querySelectorAll<HTMLButtonElement>('.card-prev-inner').forEach((btn) => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         goToSlide(currentIndex - 1);
       });
     });
     wrapper.querySelectorAll<HTMLButtonElement>('.card-next-inner').forEach((btn) => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         goToSlide(currentIndex + 1);
       });
