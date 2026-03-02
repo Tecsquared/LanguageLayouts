@@ -34,6 +34,7 @@ export const templates = [
       { text: 'Free', color: '#FF6B6B' },
     ],
     image: 'language-learning-planner.png',
+    link: 'https://www.notion.com/templates/language-learning-planner-205',
   },
   {
     name: 'Lesson Planner',
@@ -43,6 +44,7 @@ export const templates = [
       { text: 'Free', color: '#FF6B6B' },
     ],
     image: 'lesson-planner.png',
+    link: 'https://www.notion.com/templates/language-layouts-lesson-planner-basic',
   },
   {
     name: 'Action Research',
@@ -50,6 +52,7 @@ export const templates = [
     tags: [
       { text: 'Teacher', color: '#FF6B6B' },
       { text: 'Free', color: '#FF6B6B' },
+      { text: 'Coming Soon', color: '#999999' },
     ],
     image: 'action-research.png',
   },
@@ -61,6 +64,7 @@ export const templates = [
       { text: 'Free', color: '#FF6B6B' },
     ],
     image: 'vocab-builder.png',
+    link: 'https://www.notion.com/templates/language-layouts-vocabulary',
   },
   {
     name: 'Language Learning Planner Plus',
@@ -68,6 +72,7 @@ export const templates = [
     tags: [
       { text: 'Learner', color: '#4ECDC4' },
       { text: 'Paid', color: '#FF6B6B' },
+      { text: 'Coming Soon', color: '#999999' },
     ],
     image: 'language-learner-plus.jpeg',
   },
@@ -79,6 +84,7 @@ export const templates = [
       { text: 'Paid', color: '#FF6B6B' },
     ],
     image: 'lesson-planner-plus.jpeg',
+    link: 'https://www.notion.com/templates/language-layouts-lesson-planner-plus',
   },
   {
     name: 'The Online Language Teacher',
@@ -86,6 +92,7 @@ export const templates = [
     tags: [
       { text: 'Teacher', color: '#FF6B6B' },
       { text: 'Paid', color: '#FF6B6B' },
+      { text: 'Coming Soon', color: '#999999' },
     ],
     image: 'online-language-teacher.png',
   },
@@ -95,6 +102,7 @@ export const templates = [
     tags: [
       { text: 'Learner', color: '#4ECDC4' },
       { text: 'Paid', color: '#FF6B6B' },
+      { text: 'Coming Soon', color: '#999999' },
     ],
     image: 'memory.png',
   },
@@ -104,6 +112,7 @@ export const templates = [
     tags: [
       { text: 'Teacher', color: '#FF6B6B' },
       { text: 'Paid', color: '#FF6B6B' },
+      { text: 'Coming Soon', color: '#999999' },
     ],
     image: 'language-agent-personalisation.png',
   },
@@ -113,6 +122,7 @@ export const templates = [
     tags: [
       { text: 'Learner', color: '#4ECDC4' },
       { text: 'Paid', color: '#FF6B6B' },
+      { text: 'Coming Soon', color: '#999999' },
     ],
     image: 'ai-language-learner.png',
   },
