@@ -35,6 +35,7 @@ export const templates = [
     ],
     image: 'language-learning-planner.png',
     link: 'https://www.notion.com/templates/language-learning-planner-205',
+    desktopLink: 'notion://www.notion.com/templates/language-learning-planner-205',
   },
   {
     name: 'Lesson Planner',
@@ -45,6 +46,7 @@ export const templates = [
     ],
     image: 'lesson-planner.png',
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-basic',
+    desktopLink: 'notion://www.notion.com/templates/language-layouts-lesson-planner-basic',
   },
   {
     name: 'Action Research',
@@ -65,6 +67,7 @@ export const templates = [
     ],
     image: 'vocab-builder.png',
     link: 'https://www.notion.com/templates/language-layouts-vocabulary',
+    desktopLink: 'notion://www.notion.com/templates/language-layouts-vocabulary',
   },
   {
     name: 'Language Learning Planner Plus',
@@ -85,6 +88,7 @@ export const templates = [
     ],
     image: 'lesson-planner-plus.jpeg',
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-plus',
+    desktopLink: 'notion://www.notion.com/templates/language-layouts-lesson-planner-plus',
   },
   {
     name: 'The Online Language Teacher',
