@@ -57,11 +57,11 @@ export const templates = [
     image: 'action-research.png',
   },
   {
-    name: 'Vocab Builder',
+    name: 'Vocab Tracker',
     description: 'Build conversational confidence through word cards, spaced repetition, and context-rich vocabulary learning.',
     tags: [
       { text: 'Learner', color: '#4ECDC4' },
-      { text: 'Free', color: '#FF6B6B' },
+      { text: 'Paid', color: '#FF6B6B' },
     ],
     image: 'vocab-builder.png',
     link: 'https://www.notion.com/templates/language-layouts-vocabulary',
@@ -175,7 +175,7 @@ export const connectLinks = [
     icon: 'newsletter',
     title: 'Newsletter',
     subtitle: 'Stay in Touch',
-    href: 'https://damienherlihy.substack.com/',
+    href: 'https://dis-aster.vercel.app/',
   },
   {
     icon: 'contact',
