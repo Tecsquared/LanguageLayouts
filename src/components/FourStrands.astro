@@ -4,78 +4,49 @@ import { strands } from '../data/templates';
 
 <section class="four-strands" id="framework">
   <div class="container">
-    <h2 class="section-title reveal">'The Four Strands'</h2>
+    <h2
+      class="section-title reveal"
+      id="strands-title"
+      role="button"
+      tabindex="0"
+      aria-label="Reset — show all four strands"
+    >'The Four Strands'</h2>
     <p class="section-subtitle reveal">The research-backed framework behind every Language Layout.</p>
 
     <div class="strands-content reveal">
       <div class="strands-illustration">
-        <!-- Four rope strands SVG with individually colorable paths -->
-        <svg viewBox="0 0 280 420" xmlns="http://www.w3.org/2000/svg" class="rope-svg">
-          <!-- Strand 1: Meaning-Focused Input -->
-          <path
-            class="rope-strand"
-            data-strand-rope="input"
-            d="M40 0 C32 35, 48 70, 36 105 C24 140, 52 175, 40 210 C28 245, 50 280, 38 315 C26 350, 48 385, 40 420"
-            stroke="#bbb"
-            stroke-width="12"
-            fill="none"
-            stroke-linecap="round"
-          />
-          <!-- Strand 2: Meaning-Focused Output -->
-          <path
-            class="rope-strand"
-            data-strand-rope="output"
-            d="M110 0 C118 35, 102 70, 114 105 C126 140, 98 175, 110 210 C122 245, 100 280, 112 315 C124 350, 102 385, 110 420"
-            stroke="#bbb"
-            stroke-width="12"
-            fill="none"
-            stroke-linecap="round"
-          />
-          <!-- Strand 3: Language-Focused Learning -->
-          <path
-            class="rope-strand"
-            data-strand-rope="language"
-            d="M170 0 C162 35, 178 70, 166 105 C154 140, 182 175, 170 210 C158 245, 180 280, 168 315 C156 350, 178 385, 170 420"
-            stroke="#bbb"
-            stroke-width="12"
-            fill="none"
-            stroke-linecap="round"
-          />
-          <!-- Strand 4: Fluency Development -->
-          <path
-            class="rope-strand"
-            data-strand-rope="fluency"
-            d="M240 0 C248 35, 232 70, 244 105 C256 140, 228 175, 240 210 C252 245, 230 280, 242 315 C254 350, 232 385, 240 420"
-            stroke="#bbb"
-            stroke-width="12"
-            fill="none"
-            stroke-linecap="round"
-          />
+        <svg viewBox="0 0 220 440" class="rope-svg" aria-hidden="true">
+          {strands.map((strand) => (
+            <path class="rope-strand-hit" data-hit={strand.id} data-strand-click={strand.id} d=""></path>
+          ))}
+          {strands.map((strand) => (
+            <path class="rope-strand" data-strand={strand.id} d=""></path>
+          ))}
         </svg>
       </div>
 
       <div class="strands-controls">
         {strands.map((strand) => (
-          <div class="strand-group">
+          <div class="strand-group" data-group={strand.id}>
             <button
               class="strand-btn"
-              data-strand={strand.id}
-              data-color={strand.color}
+              data-strand-click={strand.id}
               aria-selected="false"
+              style={`--strand-color: ${strand.color};`}
             >
               <span class="strand-dot"></span>
               <span class="strand-name">{strand.name}</span>
             </button>
-            <p
-              class="strand-desc"
-              data-strand-panel={strand.id}
-            >
-              {strand.description}
-            </p>
+            <p class="strand-desc"><span>{strand.description}</span></p>
           </div>
         ))}
       </div>
     </div>
+
+    <svg class="strands-waveform" viewBox="0 0 520 40" aria-hidden="true">
+      <path class="waveform-base" data-wave="base" d=""></path>
+      <path class="waveform-highlight" data-wave="highlight" d=""></path>
+    </svg>
 
     <p class="strands-hint reveal">Click on the strands or labels to explore each component of Paul Nation's framework.</p>
   </div>
@@ -86,33 +57,60 @@ import { strands } from '../data/templates';
     padding-top: 60px;
   }
 
+  .section-title {
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.25s var(--ease-expo);
+  }
+  .section-title:hover { opacity: 0.72; }
+
   .strands-content {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 64px;
+    gap: 72px;
     align-items: center;
-    max-width: 800px;
+    max-width: 820px;
     margin: 0 auto;
   }
 
   .strands-illustration {
-    width: 200px;
+    width: 220px;
+    height: 440px;
+    position: relative;
   }
-
   .rope-svg {
     width: 100%;
-    height: auto;
+    height: 100%;
+    display: block;
+    overflow: visible;
   }
 
-  .rope-strand {
-    transition: stroke 0.4s ease;
+  .rope-strand-hit {
     cursor: pointer;
+    fill: none;
+    stroke: transparent;
+    stroke-width: 28;
+    stroke-linecap: round;
+  }
+  .rope-strand {
+    fill: none;
+    stroke-linecap: round;
+    transition:
+      stroke 0.6s var(--ease-expo),
+      stroke-width 0.6s var(--ease-expo),
+      opacity 0.6s var(--ease-expo);
+    pointer-events: none;
   }
 
   .strands-controls {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
+  }
+
+  .strand-group {
+    display: flex;
+    flex-direction: column;
   }
 
   .strand-btn {
@@ -122,154 +120,332 @@ import { strands } from '../data/templates';
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px 0;
+    padding: 6px 0;
+    text-align: left;
     font-family: var(--font-heading);
-    font-size: 1.4rem;
     font-weight: 700;
+    font-size: 1.25rem;
     letter-spacing: -0.01em;
     color: var(--color-black);
     transition: opacity 0.2s;
   }
-
-  .strand-btn:hover {
-    opacity: 0.8;
-  }
+  .strand-btn:hover { opacity: 0.75; }
 
   .strand-dot {
     width: 18px;
     height: 18px;
     border-radius: 50%;
     border: 2px solid var(--color-gray-dark);
+    background: transparent;
     flex-shrink: 0;
-    transition: background-color 0.3s, border-color 0.3s;
+    transition:
+      background-color 0.4s var(--ease-expo),
+      border-color 0.4s var(--ease-expo),
+      transform 0.4s var(--ease-expo);
   }
-
   .strand-btn.active .strand-dot {
-    border-color: transparent;
-  }
-
-  .strand-group {
-    display: flex;
-    flex-direction: column;
+    background: var(--strand-color, var(--color-black));
+    border-color: var(--strand-color, var(--color-black));
+    transform: scale(1.1);
   }
 
   .strand-desc {
-    display: none;
     color: var(--color-gray);
     font-size: 0.95rem;
-    line-height: 1.7;
+    line-height: 1.65;
     padding-left: 32px;
-    margin-top: 4px;
+    max-width: 46ch;
+
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    margin: 0;
+    transition:
+      grid-template-rows 0.5s var(--ease-expo),
+      opacity 0.4s var(--ease-expo),
+      margin-top 0.5s var(--ease-expo);
+    margin-top: 0;
+  }
+  .strand-desc > span {
+    overflow: hidden;
+    min-height: 0;
+  }
+  .strand-group.active .strand-desc {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 6px;
   }
 
-  .strand-desc.active {
+  .strands-waveform {
+    margin: 56px auto 0;
+    max-width: 520px;
+    height: 40px;
     display: block;
+    overflow: visible;
+  }
+  .waveform-base {
+    stroke: var(--color-black);
+    stroke-width: 1.25;
+    fill: none;
+  }
+  .waveform-highlight {
+    stroke-width: 2;
+    fill: none;
+    transition: stroke 0.6s var(--ease-expo);
   }
 
   .strands-hint {
     text-align: center;
     color: var(--color-gray-light);
     font-size: 0.85rem;
-    margin-top: 40px;
+    margin: 32px 0 0;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 760px) {
     .strands-content {
       grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 40px;
+      max-width: 420px;
     }
-
     .strands-illustration {
+      width: 180px;
+      height: 320px;
       margin: 0 auto;
-      width: 160px;
     }
+    .strand-btn { font-size: 1.1rem; }
+    .strand-desc { font-size: 0.9rem; padding-left: 28px; }
   }
 
-  @media (max-width: 480px) {
-    .strand-btn {
-      font-size: 1.2rem;
-      gap: 10px;
-    }
-
-    .strand-dot {
-      width: 14px;
-      height: 14px;
-    }
-
-    .strand-desc {
-      font-size: 0.85rem;
-      padding-left: 24px;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .rope-strand { transition: stroke 0.2s linear; }
   }
 </style>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-strand]');
-  const panels = document.querySelectorAll<HTMLElement>('[data-strand-panel]');
-  const ropes = document.querySelectorAll<SVGPathElement>('[data-strand-rope]');
+  (() => {
+    'use strict';
 
-  let activeStrand: string | null = null;
+    const STRANDS = [
+      { id: 'input',    base: 50  },
+      { id: 'output',   base: 97  },
+      { id: 'language', base: 123 },
+      { id: 'fluency',  base: 170 },
+    ];
 
-  function clearAll() {
-    buttons.forEach((btn) => {
-      btn.classList.remove('active');
-      btn.setAttribute('aria-selected', 'false');
-      const dot = btn.querySelector<HTMLElement>('.strand-dot');
-      if (dot) dot.style.backgroundColor = '';
+    const VIEW_W = 220;
+    const VIEW_H = 440;
+
+    const FREQ = 1.15;
+    const HELIX_FREQ = 3.4;
+    const HELIX_AMP = 48;
+    const HELIX_SPEED_R = 0.0011;
+    const CENTER_X = VIEW_W / 2;
+
+    const PHASE_OFFSETS = [0, Math.PI * 0.5, Math.PI, Math.PI * 1.5];
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    type StrandState = {
+      id: string;
+      phase: number;
+      colored: number;
+      targetColored: number;
+    };
+
+    const state: StrandState[] = STRANDS.map((s, i) => ({
+      id: s.id,
+      phase: PHASE_OFFSETS[i],
+      colored: 0,
+      targetColored: 0,
+    }));
+
+    let activeId: string | null = null;
+
+    const svgStrands: Record<string, SVGPathElement> = {};
+    const svgHits: Record<string, SVGPathElement> = {};
+    document.querySelectorAll<SVGPathElement>('.rope-strand').forEach((el) => {
+      svgStrands[el.dataset.strand!] = el;
     });
-    panels.forEach((panel) => panel.classList.remove('active'));
-    ropes.forEach((rope) => {
-      rope.style.stroke = '#bbb';
-      rope.style.strokeWidth = '12';
+    document.querySelectorAll<SVGPathElement>('.rope-strand-hit').forEach((el) => {
+      svgHits[el.dataset.hit!] = el;
     });
-    activeStrand = null;
-  }
+    const waveBase = document.querySelector<SVGPathElement>('[data-wave="base"]')!;
+    const waveHi = document.querySelector<SVGPathElement>('[data-wave="highlight"]')!;
+    const svgEl = document.querySelector<SVGElement>('.rope-svg')!;
 
-  function toggleStrand(strandId: string) {
-    // If already active, deselect it
-    if (activeStrand === strandId) {
-      clearAll();
-      return;
+    function buildPath(cx: number, amp: number, phase: number, wrap = 0, samples = 44) {
+      const pts: [number, number][] = [];
+      const centerX = cx + (CENTER_X - cx) * wrap;
+      const freq = FREQ + (HELIX_FREQ - FREQ) * wrap;
+      for (let i = 0; i <= samples; i++) {
+        const y = (i / samples) * VIEW_H;
+        const u = i / samples;
+        const envRest = Math.sin(u * Math.PI);
+        const envHelix = 0.22 + 0.78 * Math.sin(u * Math.PI);
+        const env = envRest + (envHelix - envRest) * wrap;
+        const a = amp * env;
+        const x = centerX + Math.sin(u * Math.PI * 2 * freq + phase) * a;
+        pts.push([x, y]);
+      }
+      let d = `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[i - 1] || pts[i];
+        const p1 = pts[i];
+        const p2 = pts[i + 1];
+        const p3 = pts[i + 2] || p2;
+        const c1x = p1[0] + (p2[0] - p0[0]) / 6;
+        const c1y = p1[1] + (p2[1] - p0[1]) / 6;
+        const c2x = p2[0] - (p3[0] - p1[0]) / 6;
+        const c2y = p2[1] - (p3[1] - p1[1]) / 6;
+        d += ` C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2[0].toFixed(2)} ${p2[1].toFixed(2)}`;
+      }
+      return d;
     }
 
-    activeStrand = strandId;
-
-    // Update buttons
-    buttons.forEach((btn) => {
-      const isActive = btn.dataset.strand === strandId;
-      btn.classList.toggle('active', isActive);
-      btn.setAttribute('aria-selected', isActive.toString());
-      const dot = btn.querySelector<HTMLElement>('.strand-dot');
-      if (dot) {
-        dot.style.backgroundColor = isActive ? btn.dataset.color! : '';
+    function buildWavePath(width: number, height: number, amp: number, phase: number, freq: number, samples = 60) {
+      const pts: [number, number][] = [];
+      for (let i = 0; i <= samples; i++) {
+        const x = (i / samples) * width;
+        const u = i / samples;
+        const env = Math.sin(u * Math.PI);
+        const y = height / 2 + Math.sin(u * Math.PI * 2 * freq + phase) * amp * env;
+        pts.push([x, y]);
       }
+      let d = `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
+      for (let i = 1; i < pts.length; i++) {
+        const p0 = pts[i - 1];
+        const p1 = pts[i];
+        const mx = (p0[0] + p1[0]) / 2;
+        d += ` Q ${p0[0].toFixed(2)} ${p0[1].toFixed(2)}, ${mx.toFixed(2)} ${((p0[1] + p1[1]) / 2).toFixed(2)}`;
+      }
+      d += ` T ${pts[pts.length - 1][0].toFixed(2)} ${pts[pts.length - 1][1].toFixed(2)}`;
+      return d;
+    }
+
+    const GREY: [number, number, number] = [212, 212, 212];
+    const ACCENT_RGB: Record<string, [number, number, number]> = {
+      input:    [255, 107, 107],
+      output:   [78, 205, 196],
+      language: [155, 89, 182],
+      fluency:  [255, 140, 66],
+    };
+
+    function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
+    function lerpColor(c1: [number, number, number], c2: [number, number, number], t: number) {
+      return `rgb(${Math.round(lerp(c1[0], c2[0], t))}, ${Math.round(lerp(c1[1], c2[1], t))}, ${Math.round(lerp(c1[2], c2[2], t))})`;
+    }
+
+    function setActive(id: string) {
+      activeId = id === activeId ? null : id;
+
+      state.forEach((s) => {
+        if (activeId === null) s.targetColored = 0;
+        else if (s.id === activeId) s.targetColored = 1;
+        else s.targetColored = 0;
+      });
+
+      if (activeId && svgStrands[activeId]) {
+        svgEl.appendChild(svgStrands[activeId]);
+      }
+
+      document.querySelectorAll<HTMLElement>('.strand-group').forEach((g) => {
+        g.classList.toggle('active', g.dataset.group === activeId);
+      });
+      document.querySelectorAll<HTMLButtonElement>('.strand-btn').forEach((b) => {
+        const isActive = b.dataset.strandClick === activeId;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-strand-click]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        setActive(el.dataset.strandClick!);
+      });
     });
 
-    // Update description panels
-    panels.forEach((panel) => {
-      panel.classList.toggle('active', panel.dataset.strandPanel === strandId);
-    });
+    function resetAll() {
+      if (activeId === null) return;
+      activeId = null;
+      state.forEach((s) => { s.targetColored = 0; });
+      document.querySelectorAll<HTMLElement>('.strand-group').forEach((g) => g.classList.remove('active'));
+      document.querySelectorAll<HTMLButtonElement>('.strand-btn').forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+    }
+    const titleEl = document.getElementById('strands-title');
+    if (titleEl) {
+      titleEl.addEventListener('click', resetAll);
+      titleEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); resetAll(); }
+      });
+    }
 
-    // Color the rope strands
-    ropes.forEach((rope) => {
-      if (rope.dataset.strandRope === strandId) {
-        const btn = document.querySelector<HTMLButtonElement>(`[data-strand="${strandId}"]`);
-        rope.style.stroke = btn?.dataset.color || '#bbb';
-        rope.style.strokeWidth = '16';
+    let lastT = performance.now();
+    let wavePhase = 0;
+    const WRAP = 1;
+
+    function getCssVar(name: string) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#000';
+    }
+
+    function tick(now: number) {
+      const dt = Math.min(now - lastT, 50);
+      lastT = now;
+
+      const ease = Math.min(1, dt / 220);
+
+      state.forEach((s, i) => {
+        s.colored += (s.targetColored - s.colored) * ease;
+
+        if (!prefersReduced) {
+          s.phase += HELIX_SPEED_R * dt;
+        }
+
+        const base = STRANDS[i].base;
+        const d = buildPath(base, HELIX_AMP, s.phase, WRAP);
+        svgStrands[s.id].setAttribute('d', d);
+        svgHits[s.id].setAttribute('d', d);
+
+        const accent = ACCENT_RGB[s.id];
+        let tintMix: number;
+        if (activeId === null) tintMix = 1;
+        else if (activeId === s.id) tintMix = 1;
+        else tintMix = s.colored;
+        const color = lerpColor(GREY, accent, tintMix);
+
+        const midPhase = Math.PI * HELIX_FREQ + s.phase;
+        const depth = Math.cos(midPhase);
+        const depthOpacity = 1 - 0.35 * Math.max(0, -depth);
+
+        svgStrands[s.id].setAttribute('stroke', color);
+        svgStrands[s.id].setAttribute('stroke-width', '12');
+        svgStrands[s.id].setAttribute('stroke-opacity', depthOpacity.toFixed(3));
+      });
+
+      if (!prefersReduced) wavePhase += dt * 0.0008;
+      const waveAmp = activeId ? 10 : 4;
+      const baseD = buildWavePath(520, 40, waveAmp, wavePhase, 2.2);
+      waveBase.setAttribute('d', baseD);
+      waveHi.setAttribute('d', baseD);
+
+      if (activeId) {
+        waveHi.setAttribute('stroke', getCssVar(`--accent-${activeId}`));
+        waveHi.setAttribute('stroke-opacity', '1');
+        const dashLen = 90;
+        const total = 600;
+        const offset = ((Math.sin(wavePhase * 0.9) + 1) / 2) * (total - dashLen);
+        waveHi.setAttribute('stroke-dasharray', `${dashLen} ${total}`);
+        waveHi.setAttribute('stroke-dashoffset', `-${offset}`);
       } else {
-        rope.style.stroke = '#bbb';
-        rope.style.strokeWidth = '12';
+        waveHi.setAttribute('stroke-opacity', '0');
       }
-    });
-  }
 
-  // Button click handlers
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => toggleStrand(btn.dataset.strand!));
-  });
+      requestAnimationFrame(tick);
+    }
 
-  // Rope click handlers
-  ropes.forEach((rope) => {
-    rope.addEventListener('click', () => toggleStrand(rope.dataset.strandRope!));
-  });
+    requestAnimationFrame(tick);
+  })();
 </script>
