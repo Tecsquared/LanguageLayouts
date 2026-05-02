@@ -47,16 +47,6 @@ export const templates = [
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-basic',
   },
   {
-    name: 'Action Research',
-    description: 'Track what works in your classroom with a simple framework for observing, reflecting, and improving.',
-    tags: [
-      { text: 'Teacher', color: '#FF6B6B' },
-      { text: 'Free', color: '#FF6B6B' },
-      { text: 'Coming Soon', color: '#999999' },
-    ],
-    image: 'action-research.png',
-  },
-  {
     name: 'Vocab Tracker',
     description: 'Build conversational confidence through word cards, spaced repetition, and context-rich vocabulary learning.',
     tags: [
@@ -67,14 +57,14 @@ export const templates = [
     link: 'https://www.notion.com/templates/language-layouts-vocabulary',
   },
   {
-    name: 'Language Learning Planner Plus',
+    name: 'Language Learning Plus',
     description: 'Everything in the free planner plus vocab recording, language learning resources, and goal setting tools.',
     tags: [
       { text: 'Learner', color: '#4ECDC4' },
       { text: 'Paid', color: '#FF6B6B' },
-      { text: 'Coming Soon', color: '#999999' },
     ],
     image: 'language-learner-plus.jpeg',
+    link: 'https://www.notion.com/templates/language-layouts-language-learning-plus',
   },
   {
     name: 'Lesson Planner Plus',
@@ -95,6 +85,19 @@ export const templates = [
       { text: 'Coming Soon', color: '#999999' },
     ],
     image: 'online-language-teacher.png',
+  },
+];
+
+export const archivedTemplates = [
+  {
+    name: 'Action Research',
+    description: 'Track what works in your classroom with a simple framework for observing, reflecting, and improving.',
+    tags: [
+      { text: 'Teacher', color: '#FF6B6B' },
+      { text: 'Free', color: '#FF6B6B' },
+      { text: 'Coming Soon', color: '#999999' },
+    ],
+    image: 'action-research.png',
   },
   {
     name: 'Memory',
