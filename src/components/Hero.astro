@@ -110,14 +110,6 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
     </div>
   </div>
 
-  <!-- Multilingual hello marquee — the site says hi on the way in -->
-  <div class="hello-marquee" aria-hidden="true">
-    <div class="hello-track">
-      {[...greetings, ...greetings, ...greetings].map((word, i) => (
-        <span class="hello-word" style={`--hw: ${i % 4};`}>{word.replace('!', '')}</span>
-      ))}
-    </div>
-  </div>
 </section>
 
 <style>
@@ -397,41 +389,6 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
   .spark-2 { bottom: 4%; left: 4%; width: 16px; height: 16px; animation-delay: 1.1s; }
   .spark-3 { top: 38%; right: -10px; width: 14px; height: 14px; animation-delay: 2.2s; }
 
-  /* --- Hello marquee --- */
-  .hello-marquee {
-    overflow: hidden;
-    padding: 18px 0;
-    border-top: 2px dashed var(--line);
-    border-bottom: 2px dashed var(--line);
-    background: var(--paper-deep);
-    -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
-    mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
-  }
-
-  .hello-track {
-    display: flex;
-    gap: 56px;
-    width: max-content;
-    animation: marquee-scroll 30s linear infinite;
-  }
-
-  .hello-marquee:hover .hello-track {
-    animation-play-state: paused;
-  }
-
-  .hello-word {
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-  }
-
-  .hello-word[style*='--hw: 0'] { color: var(--mfi); }
-  .hello-word[style*='--hw: 1'] { color: var(--mfo); }
-  .hello-word[style*='--hw: 2'] { color: var(--lfl); }
-  .hello-word[style*='--hw: 3'] { color: var(--fd); }
-
   /* --- Confetti pieces (spawned by JS) --- */
   :global(.confetti-bit) {
     position: fixed;
@@ -525,10 +482,6 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
     .arrow-path {
       animation: none;
       stroke-dashoffset: 0;
-    }
-
-    .hello-track {
-      animation: none;
     }
   }
 </style>

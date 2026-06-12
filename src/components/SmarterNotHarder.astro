@@ -266,6 +266,50 @@
   if (slider && harderLayer && divider) {
     let isDragging = false;
 
+    // --- Whoosh: a short burst of filtered noise, synthesised on the fly ---
+    let audioCtx: AudioContext | null = null;
+    let lastWhoosh = 0;
+
+    function whoosh(intensity: number) {
+      const now = performance.now();
+      if (now - lastWhoosh < 180) return;
+      lastWhoosh = now;
+      try {
+        audioCtx = audioCtx || new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+        const ctx = audioCtx;
+        const dur = 0.28;
+        const buffer = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.Q.value = 1.1;
+        filter.frequency.setValueAtTime(280, ctx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(1600, ctx.currentTime + dur * 0.55);
+        filter.frequency.exponentialRampToValueAtTime(420, ctx.currentTime + dur);
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.14 * intensity, ctx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        noise.start();
+        noise.stop(ctx.currentTime + dur);
+      } catch {
+        // Audio blocked or unsupported — the slider stays silent, no harm done
+      }
+    }
+
+    let lastSide: string | null = null;
+
     function updateSlider(clientX: number) {
       const rect = slider!.getBoundingClientRect();
       let x = clientX - rect.left;
@@ -276,8 +320,9 @@
       divider.style.left = `${pct}%`;
 
       // Show HARDER when mostly harder visible (>50%), SMARTER when mostly smarter
+      const side = pct > 50 ? 'harder' : 'smarter';
       if (labelHarder && labelSmarter) {
-        if (pct > 50) {
+        if (side === 'harder') {
           labelHarder.style.display = '';
           labelSmarter.style.display = 'none';
         } else {
@@ -285,10 +330,15 @@
           labelSmarter.style.display = '';
         }
       }
+
+      // Whoosh as the divider sweeps past the middle
+      if (lastSide && side !== lastSide) whoosh(1);
+      lastSide = side;
     }
 
     slider.addEventListener('mousedown', (e) => {
       isDragging = true;
+      whoosh(0.55);
       updateSlider(e.clientX);
     });
 
@@ -305,6 +355,7 @@
     // Touch support
     slider.addEventListener('touchstart', (e) => {
       isDragging = true;
+      whoosh(0.55);
       updateSlider(e.touches[0].clientX);
     }, { passive: true });
 

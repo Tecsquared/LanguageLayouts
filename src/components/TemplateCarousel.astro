@@ -196,12 +196,9 @@ import { templates } from '../data/templates';
         item.style.opacity = String(opacity);
         item.style.zIndex = String(zIndex);
 
-        // Disable pointer events on non-active cards
-        if (absOffset === 0) {
-          item.style.pointerEvents = 'auto';
-        } else {
-          item.style.pointerEvents = 'none';
-        }
+        // Visible cards stay clickable (side cards rotate to front on click);
+        // fully faded cards ignore the pointer
+        item.style.pointerEvents = opacity > 0 ? 'auto' : 'none';
       });
 
       dots.forEach((dot, i) => {
@@ -215,21 +212,30 @@ import { templates } from '../data/templates';
       updatePositions();
     }
 
-    // Inner card arrow handlers
-    wrapper.querySelectorAll<HTMLButtonElement>('.card-prev-inner').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
+    // One delegated listener (capture phase) handles arrows and side cards,
+    // so a click can never fall through to the card link by mistake
+    wrapper.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+
+      const arrow = target.closest('.card-prev-inner, .card-next-inner');
+      if (arrow) {
         e.preventDefault();
         e.stopPropagation();
-        goToSlide(currentIndex - 1);
-      });
-    });
-    wrapper.querySelectorAll<HTMLButtonElement>('.card-next-inner').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        goToSlide(currentIndex + 1);
-      });
-    });
+        goToSlide(currentIndex + (arrow.classList.contains('card-next-inner') ? 1 : -1));
+        return;
+      }
+
+      const item = target.closest('.carousel-3d-item') as HTMLElement | null;
+      if (item) {
+        const idx = parseInt(item.dataset.index || '0');
+        if (idx !== currentIndex) {
+          // Side card clicked: bring it to the front instead of following its link
+          e.preventDefault();
+          e.stopPropagation();
+          goToSlide(idx);
+        }
+      }
+    }, true);
 
     // Dot handlers
     dots.forEach((dot) => {

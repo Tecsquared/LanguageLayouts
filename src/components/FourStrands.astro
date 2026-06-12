@@ -43,11 +43,6 @@ import { strands } from '../data/templates';
       </div>
     </div>
 
-    <svg class="strands-waveform" viewBox="0 0 520 40" aria-hidden="true">
-      <path class="waveform-base" data-wave="base" d=""></path>
-      <path class="waveform-highlight" data-wave="highlight" d=""></path>
-    </svg>
-
     <p class="strands-hint reveal">
       <svg class="hint-arrow" viewBox="0 0 50 26" fill="none" aria-hidden="true">
         <path d="M46 22 C34 20, 20 16, 10 5" stroke="var(--terra)" stroke-width="1.8" stroke-linecap="round" fill="none" />
@@ -159,8 +154,8 @@ import { strands } from '../data/templates';
   }
 
   .strand-desc {
-    color: var(--muted);
-    font-size: 0.95rem;
+    color: var(--ink-soft);
+    font-size: 1rem;
     line-height: 1.65;
     padding-left: 32px;
     max-width: 46ch;
@@ -185,31 +180,12 @@ import { strands } from '../data/templates';
     margin-top: 6px;
   }
 
-  .strands-waveform {
-    margin: 56px auto 0;
-    max-width: 520px;
-    height: 40px;
-    display: block;
-    overflow: visible;
-  }
-  .waveform-base {
-    stroke: var(--ink);
-    stroke-width: 1.25;
-    fill: none;
-    opacity: 0.65;
-  }
-  .waveform-highlight {
-    stroke-width: 2;
-    fill: none;
-    transition: stroke 0.6s var(--ease-expo);
-  }
-
   .strands-hint {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     gap: 8px;
-    margin: 30px 0 0;
+    margin: 48px 0 0;
   }
 
   .hint-arrow {
@@ -292,8 +268,6 @@ import { strands } from '../data/templates';
     document.querySelectorAll<SVGPathElement>('.rope-strand-hit').forEach((el) => {
       svgHits[el.dataset.hit!] = el;
     });
-    const waveBase = document.querySelector<SVGPathElement>('[data-wave="base"]')!;
-    const waveHi = document.querySelector<SVGPathElement>('[data-wave="highlight"]')!;
     const svgEl = document.querySelector<SVGElement>('.rope-svg')!;
 
     function buildPath(cx: number, amp: number, phase: number, wrap = 0, samples = 44) {
@@ -322,26 +296,6 @@ import { strands } from '../data/templates';
         const c2y = p2[1] - (p3[1] - p1[1]) / 6;
         d += ` C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2[0].toFixed(2)} ${p2[1].toFixed(2)}`;
       }
-      return d;
-    }
-
-    function buildWavePath(width: number, height: number, amp: number, phase: number, freq: number, samples = 60) {
-      const pts: [number, number][] = [];
-      for (let i = 0; i <= samples; i++) {
-        const x = (i / samples) * width;
-        const u = i / samples;
-        const env = Math.sin(u * Math.PI);
-        const y = height / 2 + Math.sin(u * Math.PI * 2 * freq + phase) * amp * env;
-        pts.push([x, y]);
-      }
-      let d = `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
-      for (let i = 1; i < pts.length; i++) {
-        const p0 = pts[i - 1];
-        const p1 = pts[i];
-        const mx = (p0[0] + p1[0]) / 2;
-        d += ` Q ${p0[0].toFixed(2)} ${p0[1].toFixed(2)}, ${mx.toFixed(2)} ${((p0[1] + p1[1]) / 2).toFixed(2)}`;
-      }
-      d += ` T ${pts[pts.length - 1][0].toFixed(2)} ${pts[pts.length - 1][1].toFixed(2)}`;
       return d;
     }
 
@@ -408,12 +362,7 @@ import { strands } from '../data/templates';
     }
 
     let lastT = performance.now();
-    let wavePhase = 0;
     const WRAP = 1;
-
-    function getCssVar(name: string) {
-      return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#000';
-    }
 
     function tick(now: number) {
       const dt = Math.min(now - lastT, 50);
@@ -448,24 +397,6 @@ import { strands } from '../data/templates';
         svgStrands[s.id].setAttribute('stroke-width', '12');
         svgStrands[s.id].setAttribute('stroke-opacity', depthOpacity.toFixed(3));
       });
-
-      if (!prefersReduced) wavePhase += dt * 0.0008;
-      const waveAmp = activeId ? 10 : 4;
-      const baseD = buildWavePath(520, 40, waveAmp, wavePhase, 2.2);
-      waveBase.setAttribute('d', baseD);
-      waveHi.setAttribute('d', baseD);
-
-      if (activeId) {
-        waveHi.setAttribute('stroke', getCssVar(`--accent-${activeId}`));
-        waveHi.setAttribute('stroke-opacity', '1');
-        const dashLen = 90;
-        const total = 600;
-        const offset = ((Math.sin(wavePhase * 0.9) + 1) / 2) * (total - dashLen);
-        waveHi.setAttribute('stroke-dasharray', `${dashLen} ${total}`);
-        waveHi.setAttribute('stroke-dashoffset', `-${offset}`);
-      } else {
-        waveHi.setAttribute('stroke-opacity', '0');
-      }
 
       requestAnimationFrame(tick);
     }

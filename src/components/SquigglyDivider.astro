@@ -85,3 +85,79 @@ const { class: className = '' } = Astro.props;
     }
   }
 </style>
+
+<script>
+  // Living threads: each divider ripples gently while it's on screen.
+  // The pathLength="1" normalisation means the CSS draw-in keeps working
+  // even though the path shape changes every frame.
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dividerEls = document.querySelectorAll<HTMLElement>('.squiggly-divider');
+
+  if (!reduced && dividerEls.length) {
+    type Divider = {
+      paths: SVGPathElement[];
+      phase: number;
+      animating: boolean;
+    };
+
+    const dividers: Divider[] = [];
+    const byElement = new Map<Element, Divider>();
+
+    dividerEls.forEach((el, idx) => {
+      const d: Divider = {
+        paths: Array.from(el.querySelectorAll<SVGPathElement>('.thread-seg')),
+        phase: idx * 1.7,
+        animating: false,
+      };
+      dividers.push(d);
+      byElement.set(el, d);
+    });
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const d = byElement.get(entry.target);
+          if (d) d.animating = entry.isIntersecting;
+        });
+      },
+      { rootMargin: '80px 0px' }
+    );
+    dividerEls.forEach((el) => io.observe(el));
+
+    function waveY(u: number, phase: number) {
+      return (
+        30 +
+        Math.sin(u * Math.PI * 2 * 2.3 + phase) * 5.5 +
+        Math.sin(u * Math.PI * 2 * 5.1 + phase * 1.7) * 3
+      );
+    }
+
+    function segPath(seg: number, phase: number) {
+      const x0 = seg * 250;
+      let d = '';
+      for (let j = 0; j <= 20; j++) {
+        const x = x0 + (j / 20) * 250;
+        const y = waveY(x / 1000, phase);
+        d += `${j === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(2)}`;
+      }
+      return d;
+    }
+
+    let last = performance.now();
+
+    function frame(now: number) {
+      const dt = Math.min(now - last, 50);
+      last = now;
+
+      dividers.forEach((d) => {
+        if (!d.animating) return;
+        d.phase += dt * 0.0011;
+        d.paths.forEach((p, seg) => p.setAttribute('d', segPath(seg, d.phase)));
+      });
+
+      requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }
+</script>
