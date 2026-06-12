@@ -10,37 +10,52 @@ interface Props {
 const { name, description, tags, image, href } = Astro.props;
 ---
 
-<a href={href || '#'} class="template-card" target="_blank" rel="noopener noreferrer">
-  <div class="card-tags">
-    {tags.map((tag, i) => (
-      <span
-        class="sticker card-tag"
-        style={`background-color: ${tag.color}; --tag-rot: ${i % 2 === 0 ? '-2deg' : '2deg'};`}
-      >{tag.text}</span>
-    ))}
-  </div>
+<div class="template-card">
+  <!-- Only the tags + image are the link; everything below drives the carousel -->
+  <a
+    href={href || 'https://www.notion.com/@languagelayouts'}
+    class="card-link"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`Open ${name}`}
+  >
+    <div class="card-tags">
+      {tags.map((tag, i) => (
+        <span
+          class="sticker card-tag"
+          style={`background-color: ${tag.color}; --tag-rot: ${i % 2 === 0 ? '-2deg' : '2deg'};`}
+        >{tag.text}</span>
+      ))}
+    </div>
 
-  <div class="card-image">
-    {image ? (
-      <img src={`/images/${image}`} alt={`${name} template preview`} loading="lazy" />
-    ) : (
-      <div class="card-image-placeholder">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="15" width="60" height="45" rx="4" stroke="var(--driftwood)" stroke-width="2.5" fill="none" />
-          <circle cx="28" cy="32" r="6" stroke="var(--driftwood)" stroke-width="2" fill="none" />
-          <path d="M10 50 L30 35 L45 48 L55 40 L70 55" stroke="var(--driftwood)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <div class="card-image">
+      {image ? (
+        <img src={`/images/${image}`} alt={`${name} template preview`} loading="lazy" />
+      ) : (
+        <div class="card-image-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="15" width="60" height="45" rx="4" stroke="var(--driftwood)" stroke-width="2.5" fill="none" />
+            <circle cx="28" cy="32" r="6" stroke="var(--driftwood)" stroke-width="2" fill="none" />
+            <path d="M10 50 L30 35 L45 48 L55 40 L70 55" stroke="var(--driftwood)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+      )}
+      <span class="card-open" aria-hidden="true">
+        Open
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17L17 7M17 7H8M17 7v9" />
         </svg>
-      </div>
-    )}
-  </div>
+      </span>
+    </div>
+  </a>
 
   <div class="card-nav">
-    <button class="card-arrow card-prev-inner" aria-label="Previous template">
+    <button type="button" class="card-arrow card-prev-inner" aria-label="Previous template">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M15 18l-6-6 6-6" />
       </svg>
     </button>
-    <button class="card-arrow card-next-inner" aria-label="Next template">
+    <button type="button" class="card-arrow card-next-inner" aria-label="Next template">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M9 18l6-6-6-6" />
       </svg>
@@ -49,7 +64,7 @@ const { name, description, tags, image, href } = Astro.props;
 
   <h3 class="card-name">{name}</h3>
   <p class="card-description">{description}</p>
-</a>
+</div>
 
 <style>
   .template-card {
@@ -62,6 +77,7 @@ const { name, description, tags, image, href } = Astro.props;
     width: 340px;
     flex-shrink: 0;
     color: inherit;
+    cursor: default;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
                 opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.4s var(--ease-out);
@@ -69,6 +85,11 @@ const { name, description, tags, image, href } = Astro.props;
 
   .template-card:hover {
     box-shadow: var(--shadow-lift);
+  }
+
+  .card-link {
+    display: block;
+    color: inherit;
   }
 
   .card-tags {
@@ -89,6 +110,7 @@ const { name, description, tags, image, href } = Astro.props;
   }
 
   .card-image {
+    position: relative;
     width: 100%;
     height: 244px;
     display: flex;
@@ -110,8 +132,43 @@ const { name, description, tags, image, href } = Astro.props;
     transition: transform 0.5s var(--ease-spring);
   }
 
-  .template-card:hover .card-image img {
+  .card-link:hover .card-image img {
     transform: scale(1.04);
+  }
+
+  /* "Open" pill — makes it obvious the image is the doorway */
+  .card-open {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: var(--terra);
+    color: var(--paper);
+    padding: 5px 13px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--ink);
+    opacity: 0;
+    transform: translateY(-5px) rotate(2deg);
+    transition: opacity 0.25s var(--ease-out), transform 0.35s var(--ease-spring);
+    pointer-events: none;
+  }
+
+  .card-open svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .card-link:hover .card-open,
+  .card-link:focus-visible .card-open {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
   }
 
   .card-image-placeholder {
@@ -128,8 +185,8 @@ const { name, description, tags, image, href } = Astro.props;
   }
 
   .card-arrow {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     border: 2px solid var(--ink);
     background: var(--card);
@@ -185,8 +242,8 @@ const { name, description, tags, image, href } = Astro.props;
     }
 
     .card-arrow {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
     }
 
     .card-arrow svg {
@@ -200,6 +257,14 @@ const { name, description, tags, image, href } = Astro.props;
 
     .card-description {
       font-size: 0.85rem;
+    }
+  }
+
+  /* Touch screens get the pill always visible — there's no hover to reveal it */
+  @media (hover: none) {
+    .card-open {
+      opacity: 1;
+      transform: none;
     }
   }
 </style>

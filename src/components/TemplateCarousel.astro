@@ -144,6 +144,49 @@ import { templates } from '../data/templates';
 </style>
 
 <script>
+  // --- Carousel swish: short filtered-noise sweep, pitch follows direction ---
+  let carouselAudio: AudioContext | null = null;
+  let lastSwish = 0;
+
+  function swish(dir: number) {
+    const now = performance.now();
+    if (now - lastSwish < 140) return;
+    lastSwish = now;
+    try {
+      carouselAudio = carouselAudio || new AudioContext();
+      if (carouselAudio.state === 'suspended') carouselAudio.resume().catch(() => {});
+      const ctx = carouselAudio;
+      const dur = 0.2;
+      const buffer = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.Q.value = 2;
+      const from = dir > 0 ? 480 : 1500;
+      const to = dir > 0 ? 1500 : 480;
+      filter.frequency.setValueAtTime(from, ctx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(to, ctx.currentTime + dur * 0.8);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.09, ctx.currentTime + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      noise.start();
+      noise.stop(ctx.currentTime + dur);
+    } catch {
+      // Audio unavailable — spin silently
+    }
+  }
+
   function initCarousel3D(wrapper: HTMLElement) {
     const container = wrapper.querySelector<HTMLElement>('.carousel-3d');
     const items = wrapper.querySelectorAll<HTMLElement>('.carousel-3d-item');
@@ -208,7 +251,16 @@ import { templates } from '../data/templates';
 
     function goToSlide(index: number) {
       // Wrap around
-      currentIndex = ((index % totalItems) + totalItems) % totalItems;
+      const next = ((index % totalItems) + totalItems) % totalItems;
+      if (next === currentIndex) return;
+
+      // Shortest wrapped distance gives the spin direction for the swish
+      let offset = next - currentIndex;
+      if (offset > totalItems / 2) offset -= totalItems;
+      if (offset < -totalItems / 2) offset += totalItems;
+      swish(Math.sign(offset));
+
+      currentIndex = next;
       updatePositions();
     }
 
