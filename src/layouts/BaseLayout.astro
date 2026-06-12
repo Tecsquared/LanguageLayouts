@@ -8,6 +8,8 @@ const {
   title = 'Language Layouts — Notion Templates for Language Learners',
   description = 'Notion templates built for language learners who want true mastery and teachers who deliver results.',
 } = Astro.props;
+
+const siteUrl = 'https://www.languagelayouts.com';
 ---
 
 <!DOCTYPE html>
@@ -19,12 +21,31 @@ const {
   <meta name="description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Google Fonts: Outfit for headlines, Inter for body -->
+  <!-- Social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={siteUrl} />
+  <meta property="og:image" content={`${siteUrl}/images/hero-globe.png`} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <!-- Fonts: Outfit (headings) + Plus Jakarta Sans (body) + Caveat (hand-written notes) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <!-- Needle & thread scroll progress -->
+  <div class="thread-progress" aria-hidden="true">
+    <div class="thread-fill" id="thread-fill"></div>
+    <svg class="thread-needle" id="thread-needle" viewBox="0 0 34 12" fill="none">
+      <path d="M1 6 L24 6" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
+      <ellipse cx="27.5" cy="6" rx="5" ry="3.6" stroke="var(--ink)" stroke-width="2" fill="var(--paper)" />
+    </svg>
+  </div>
+
   <slot />
 
   <!-- Scroll Reveal Observer -->
@@ -43,9 +64,75 @@ const {
 
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   </script>
+
+  <!-- Thread progress: scaleX fill + travelling needle, driven by rAF -->
+  <script>
+    const fill = document.getElementById('thread-fill');
+    const needle = document.getElementById('thread-needle');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (fill && needle && !reduced) {
+      let current = 0;
+      let target = 0;
+
+      function measure() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        target = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      }
+
+      function frame() {
+        measure();
+        current += (target - current) * 0.18;
+        if (Math.abs(target - current) < 0.0005) current = target;
+        fill.style.transform = `scaleX(${current})`;
+        needle.style.transform = `translateX(${current * (window.innerWidth - 34)}px)`;
+        requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    } else if (fill && needle) {
+      // Reduced motion: still show progress, just without the chase easing
+      window.addEventListener('scroll', () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        fill.style.transform = `scaleX(${p})`;
+        needle.style.transform = `translateX(${p * (window.innerWidth - 34)}px)`;
+      }, { passive: true });
+    }
+  </script>
 </body>
 </html>
 
 <style is:global>
   @import '../styles/global.css';
+
+  .thread-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    z-index: var(--z-progress);
+    pointer-events: none;
+  }
+
+  .thread-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: linear-gradient(90deg, var(--mfi) 0%, var(--mfo) 34%, var(--lfl) 67%, var(--fd) 100%);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .thread-needle {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 34px;
+    height: 12px;
+  }
 </style>

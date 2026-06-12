@@ -4,7 +4,7 @@
 <section class="architect">
   <div class="container architect-grid">
     <div class="architect-text">
-      <span class="architect-badge reveal">THE ARCHITECT</span>
+      <span class="architect-badge reveal" style="--reveal-rot: -6deg; --reveal-rot-end: -2deg;">The Architect</span>
       <h2 class="architect-heading reveal">
         Laying Out The<br />Future Of Fluency
       </h2>
@@ -23,13 +23,15 @@
       </p>
     </div>
 
-    <div class="architect-photo reveal">
+    <div class="architect-photo reveal" style="--reveal-rot: 7deg; --reveal-rot-end: 3deg;">
       <div class="photo-card">
-        <img src="/images/architect-photo.jpeg" alt="Language Layouts architect" />
+        <span class="tape photo-tape"></span>
+        <img src="/images/architect-photo.jpeg" alt="Language Layouts architect" loading="lazy" />
+        <span class="photo-caption hand-note">the human behind the layouts</span>
       </div>
-      <div class="photo-accent">
+      <div class="photo-accent" aria-hidden="true">
         <svg viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 15 C15 10, 25 20, 35 15 C45 10, 55 20, 65 15 C70 12, 75 15, 80 13" stroke="var(--color-coral)" stroke-width="3" stroke-linecap="round" fill="none" />
+          <path d="M5 15 C15 10, 25 20, 35 15 C45 10, 55 20, 65 15 C70 12, 75 15, 80 13" stroke="var(--terra)" stroke-width="3" stroke-linecap="round" fill="none" />
         </svg>
       </div>
     </div>
@@ -50,19 +52,22 @@
 
   .architect-badge {
     display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--color-white);
-    background: var(--color-coral);
-    padding: 6px 14px;
-    border-radius: 4px;
-    margin-bottom: 20px;
+    width: fit-content;
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terra);
+    border: 2px solid var(--terra);
+    padding: 6px 16px;
+    border-radius: 6px;
+    margin-bottom: 22px;
   }
 
   .architect-heading {
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: clamp(2.2rem, 4.5vw, 3rem);
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: -0.02em;
@@ -70,10 +75,11 @@
   }
 
   .architect-bio {
-    color: var(--color-gray);
-    font-size: 0.95rem;
-    line-height: 1.7;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.75;
     margin-bottom: 16px;
+    max-width: 52ch;
   }
 
   .architect-photo {
@@ -82,44 +88,63 @@
     justify-content: center;
   }
 
+  /* Polaroid-style frame */
   .photo-card {
+    position: relative;
     width: 340px;
-    height: 400px;
-    background: var(--color-white);
-    border-radius: var(--radius);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    transform: rotate(3deg);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+    padding: 14px 14px 12px;
+    transition: transform 0.5s var(--ease-spring), box-shadow 0.5s var(--ease-out);
+  }
+
+  .architect-photo.visible .photo-card:hover {
+    transform: rotate(-2deg) translateY(-6px);
+    box-shadow: var(--shadow-lift);
   }
 
   .photo-card img {
     width: 100%;
-    height: 100%;
+    height: 360px;
     object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .photo-tape {
+    top: -14px;
+    left: 50%;
+    margin-left: -46px;
+    transform: rotate(4deg);
+  }
+
+  .photo-caption {
+    display: block;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 1.3rem;
+    color: var(--ink-soft);
   }
 
   .photo-accent {
     position: absolute;
-    bottom: -10px;
-    right: -20px;
+    bottom: -14px;
+    right: -18px;
     width: 100px;
   }
 
   @media (max-width: 768px) {
     .architect-grid {
       grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .architect-heading {
-      font-size: 2.2rem;
+      gap: 48px;
     }
 
     .photo-card {
-      width: 260px;
+      width: 280px;
+    }
+
+    .photo-card img {
       height: 300px;
     }
   }
@@ -127,10 +152,6 @@
   @media (max-width: 480px) {
     .photo-card {
       max-width: 80vw;
-    }
-
-    .architect-heading {
-      font-size: 2rem;
     }
   }
 </style>

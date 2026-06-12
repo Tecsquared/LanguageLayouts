@@ -1,26 +1,34 @@
+// Brand colours (see BRAND.md)
+const TERRA = '#B85C38';      // Free / primary
+const MFI_GREEN = '#5A7F6E';  // Meaning-Focused Input + Learner tags
+const MFO_PURPLE = '#7A6BA0'; // Meaning-Focused Output + All tags
+const LFL_GOLD = '#C49A3C';   // Language-Focused Learning + Paid tags
+const FD_BLUE = '#6B8DB5';    // Fluency Development + Teacher tags
+const DRIFTWOOD = '#A09889';  // Coming Soon
+
 export const strands = [
   {
     id: 'input',
     name: 'Meaning-Focused Input',
-    color: '#FF6B6B',
+    color: MFI_GREEN,
     description: 'You learn by listening to and reading things you can mostly understand, focusing on the message rather than the language itself.',
   },
   {
     id: 'output',
     name: 'Meaning-Focused Output',
-    color: '#4ECDC4',
+    color: MFO_PURPLE,
     description: 'You grow by speaking and writing to communicate real ideas, not just practising set phrases or filling in blanks.',
   },
   {
     id: 'language',
     name: 'Language-Focused Learning',
-    color: '#9B59B6',
+    color: LFL_GOLD,
     description: 'You study the building blocks directly — grammar, vocabulary, pronunciation — so you can notice and use them everywhere else.',
   },
   {
     id: 'fluency',
     name: 'Fluency Development',
-    color: '#FF8C42',
+    color: FD_BLUE,
     description: 'You get faster and smoother with what you already know, turning hesitant knowledge into natural, automatic use.',
   },
 ];
@@ -30,8 +38,8 @@ export const templates = [
     name: 'Language Learning Planner',
     description: 'Plan and track balanced study across all four strands so you always know what to work on next.',
     tags: [
-      { text: 'Learner', color: '#4ECDC4' },
-      { text: 'Free', color: '#FF6B6B' },
+      { text: 'Learner', color: MFI_GREEN },
+      { text: 'Free', color: TERRA },
     ],
     image: 'language-learning-planner.png',
     link: 'https://www.notion.com/templates/language-learning-planner-205',
@@ -40,8 +48,8 @@ export const templates = [
     name: 'Lesson Planner',
     description: 'Plan four-strand lessons that balance input, output, language focus, and fluency in every class.',
     tags: [
-      { text: 'Teacher', color: '#FF6B6B' },
-      { text: 'Free', color: '#FF6B6B' },
+      { text: 'Teacher', color: FD_BLUE },
+      { text: 'Free', color: TERRA },
     ],
     image: 'lesson-planner.png',
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-basic',
@@ -50,8 +58,8 @@ export const templates = [
     name: 'Vocab Tracker',
     description: 'Build conversational confidence through word cards, spaced repetition, and context-rich vocabulary learning.',
     tags: [
-      { text: 'Learner', color: '#4ECDC4' },
-      { text: 'Paid', color: '#FF6B6B' },
+      { text: 'Learner', color: MFI_GREEN },
+      { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'vocab-builder.png',
     link: 'https://www.notion.com/templates/language-layouts-vocabulary',
@@ -60,8 +68,8 @@ export const templates = [
     name: 'Language Learning Plus',
     description: 'Everything in the free planner plus vocab recording, language learning resources, and goal setting tools.',
     tags: [
-      { text: 'Learner', color: '#4ECDC4' },
-      { text: 'Paid', color: '#FF6B6B' },
+      { text: 'Learner', color: MFI_GREEN },
+      { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'language-learner-plus.jpeg',
     link: 'https://www.notion.com/templates/language-layouts-language-learning-plus',
@@ -70,8 +78,8 @@ export const templates = [
     name: 'Lesson Planner Plus',
     description: 'A complete teaching workspace for planning, tracking student progress, managing homework, and task management.',
     tags: [
-      { text: 'Teacher', color: '#FF6B6B' },
-      { text: 'Paid', color: '#FF6B6B' },
+      { text: 'Teacher', color: FD_BLUE },
+      { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'lesson-planner-plus.jpeg',
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-plus',
@@ -80,9 +88,9 @@ export const templates = [
     name: 'The Online Language Teacher',
     description: 'The total online language tutor solution.',
     tags: [
-      { text: 'Teacher', color: '#FF6B6B' },
-      { text: 'Paid', color: '#FF6B6B' },
-      { text: 'Coming Soon', color: '#999999' },
+      { text: 'Teacher', color: FD_BLUE },
+      { text: 'Paid', color: LFL_GOLD },
+      { text: 'Coming Soon', color: DRIFTWOOD },
     ],
     image: 'online-language-teacher.png',
   },
@@ -93,9 +101,9 @@ export const archivedTemplates = [
     name: 'Action Research',
     description: 'Track what works in your classroom with a simple framework for observing, reflecting, and improving.',
     tags: [
-      { text: 'Teacher', color: '#FF6B6B' },
-      { text: 'Free', color: '#FF6B6B' },
-      { text: 'Coming Soon', color: '#999999' },
+      { text: 'Teacher', color: FD_BLUE },
+      { text: 'Free', color: TERRA },
+      { text: 'Coming Soon', color: DRIFTWOOD },
     ],
     image: 'action-research.png',
   },
@@ -103,19 +111,19 @@ export const archivedTemplates = [
     name: 'Memory',
     description: 'Learn memory techniques and how they apply to language learning.',
     tags: [
-      { text: 'Learner', color: '#4ECDC4' },
-      { text: 'Paid', color: '#FF6B6B' },
-      { text: 'Coming Soon', color: '#999999' },
+      { text: 'Learner', color: MFI_GREEN },
+      { text: 'Paid', color: LFL_GOLD },
+      { text: 'Coming Soon', color: DRIFTWOOD },
     ],
     image: 'memory.png',
   },
   {
     name: 'Language Agent Personalisation',
-    description: 'Customise your AI instructions to support your teaching style and your students\u2019 needs.',
+    description: 'Customise your AI instructions to support your teaching style and your students’ needs.',
     tags: [
-      { text: 'Teacher', color: '#FF6B6B' },
-      { text: 'Paid', color: '#FF6B6B' },
-      { text: 'Coming Soon', color: '#999999' },
+      { text: 'Teacher', color: FD_BLUE },
+      { text: 'Paid', color: LFL_GOLD },
+      { text: 'Coming Soon', color: DRIFTWOOD },
     ],
     image: 'language-agent-personalisation.png',
   },
@@ -123,9 +131,9 @@ export const archivedTemplates = [
     name: 'AI Language Learner',
     description: 'A personal AI language space that uses the latest in AI to boost your language skills.',
     tags: [
-      { text: 'Learner', color: '#4ECDC4' },
-      { text: 'Paid', color: '#FF6B6B' },
-      { text: 'Coming Soon', color: '#999999' },
+      { text: 'Learner', color: MFI_GREEN },
+      { text: 'Paid', color: LFL_GOLD },
+      { text: 'Coming Soon', color: DRIFTWOOD },
     ],
     image: 'ai-language-learner.png',
   },
@@ -134,10 +142,10 @@ export const archivedTemplates = [
 export const services = [
   {
     name: 'One-on-One Coaching',
-    description: 'Get personalised guidance on using your template, building better teaching habits, or planning your language learning..',
+    description: 'Get personalised guidance on using your template, building better teaching habits, or planning your language learning.',
     tags: [
-      { text: 'All', color: '#4ECDC4' },
-      { text: 'Paid', color: '#FF6B6B' },
+      { text: 'All', color: MFO_PURPLE },
+      { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'coaching-illustration.png',
   },
@@ -145,8 +153,8 @@ export const services = [
     name: 'Deep Dive Sessions',
     description: 'Focused problem-solving for adapting your template, or customising your Notion setup.',
     tags: [
-      { text: 'All', color: '#4ECDC4' },
-      { text: 'Paid', color: '#FF6B6B' },
+      { text: 'All', color: MFO_PURPLE },
+      { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'deep-dive-illustration.png',
   },
@@ -154,8 +162,8 @@ export const services = [
     name: 'Space Transformation',
     description: 'We design and build a complete Notion workspace tailored to how you learn or teach, from scratch or existing setup.',
     tags: [
-      { text: 'All', color: '#4ECDC4' },
-      { text: 'Paid', color: '#FF6B6B' },
+      { text: 'All', color: MFO_PURPLE },
+      { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'space-transformation-illustration.png',
   },

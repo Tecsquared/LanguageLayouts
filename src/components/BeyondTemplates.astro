@@ -33,10 +33,6 @@ import { services } from '../data/templates';
 </section>
 
 <style>
-  .beyond-section {
-    /* overflow handled by .carousel-3d-clip so dots remain visible */
-  }
-
   .carousel-3d-clip {
     overflow: visible;
   }
@@ -46,13 +42,13 @@ import { services } from '../data/templates';
   }
 
   .carousel-wrapper {
-    padding: 60px 0 40px;
+    padding: 50px 0 20px;
   }
 
   .carousel-3d {
     position: relative;
     width: 100%;
-    height: 520px;
+    height: 700px;
     perspective: 1900px;
     display: flex;
     align-items: center;
@@ -68,33 +64,42 @@ import { services } from '../data/templates';
     transform-style: preserve-3d;
   }
 
+  /* Stitch-style pagination */
   .carousel-dots {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    align-items: center;
+    gap: 9px;
     margin-top: 24px;
   }
 
   .carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+    width: 16px;
+    height: 5px;
+    border-radius: 3px;
     border: none;
-    background: var(--color-border);
+    background: var(--driftwood);
+    opacity: 0.5;
     cursor: pointer;
-    transition: background-color 0.3s, width 0.3s;
+    transition: background-color 0.3s, width 0.3s var(--ease-spring), opacity 0.3s, transform 0.2s var(--ease-spring);
     padding: 0;
+    transform: rotate(-12deg);
+  }
+
+  .carousel-dot:hover {
+    opacity: 0.9;
+    transform: rotate(-12deg) scaleY(1.4);
   }
 
   .carousel-dot.active {
-    background: var(--color-coral);
-    width: 24px;
-    border-radius: 5px;
+    background: var(--terra);
+    opacity: 1;
+    width: 30px;
   }
 
   @media (max-width: 768px) {
     .carousel-3d {
-      height: 480px;
+      height: 640px;
       perspective: 1200px;
     }
 
@@ -105,7 +110,7 @@ import { services } from '../data/templates';
 
   @media (max-width: 480px) {
     .carousel-3d {
-      height: 400px;
+      height: 560px;
       perspective: 1000px;
     }
 

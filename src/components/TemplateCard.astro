@@ -12,20 +12,23 @@ const { name, description, tags, image, href } = Astro.props;
 
 <a href={href || '#'} class="template-card" target="_blank" rel="noopener noreferrer">
   <div class="card-tags">
-    {tags.map((tag) => (
-      <span class="card-tag" style={`background-color: ${tag.color}`}>{tag.text}</span>
+    {tags.map((tag, i) => (
+      <span
+        class="sticker card-tag"
+        style={`background-color: ${tag.color}; --tag-rot: ${i % 2 === 0 ? '-2deg' : '2deg'};`}
+      >{tag.text}</span>
     ))}
   </div>
 
   <div class="card-image">
     {image ? (
-      <img src={`/images/${image}`} alt={`${name} template preview`} />
+      <img src={`/images/${image}`} alt={`${name} template preview`} loading="lazy" />
     ) : (
       <div class="card-image-placeholder">
         <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="15" width="60" height="45" rx="4" stroke="#999" stroke-width="2.5" fill="none" />
-          <circle cx="28" cy="32" r="6" stroke="#999" stroke-width="2" fill="none" />
-          <path d="M10 50 L30 35 L45 48 L55 40 L70 55" stroke="#999" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="10" y="15" width="60" height="45" rx="4" stroke="var(--driftwood)" stroke-width="2.5" fill="none" />
+          <circle cx="28" cy="32" r="6" stroke="var(--driftwood)" stroke-width="2" fill="none" />
+          <path d="M10 50 L30 35 L45 48 L55 40 L70 55" stroke="var(--driftwood)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
     )}
@@ -51,50 +54,51 @@ const { name, description, tags, image, href } = Astro.props;
 <style>
   .template-card {
     display: block;
-    background: var(--color-white);
+    background: var(--card);
+    border: 2px solid var(--ink);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-soft);
     padding: 24px;
     width: 340px;
     flex-shrink: 0;
-    text-decoration: none;
     color: inherit;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s var(--ease-out);
   }
 
   .template-card:hover {
-    opacity: 0.85;
+    box-shadow: var(--shadow-lift);
   }
 
   .card-tags {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-bottom: 16px;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .card-tag {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--color-white);
-    padding: 4px 10px;
-    border-radius: 4px;
+    transform: rotate(var(--tag-rot, 0deg));
+    transition: transform 0.3s var(--ease-spring);
+  }
+
+  .template-card:hover .card-tag {
+    transform: rotate(0deg);
   }
 
   .card-image {
     width: 100%;
-    height: 254px;
+    height: 244px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
     margin-bottom: 16px;
     overflow: hidden;
-    background: var(--color-bg-hero, #f9f9f9);
+    background: #FFFFFF;
   }
 
   .card-image img {
@@ -103,6 +107,11 @@ const { name, description, tags, image, href } = Astro.props;
     object-fit: contain;
     padding: 12px;
     box-sizing: border-box;
+    transition: transform 0.5s var(--ease-spring);
+  }
+
+  .template-card:hover .card-image img {
+    transform: scale(1.04);
   }
 
   .card-image-placeholder {
@@ -122,18 +131,28 @@ const { name, description, tags, image, href } = Astro.props;
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1px solid var(--color-border);
-    background: var(--color-white);
+    border: 2px solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.2s, background-color 0.2s;
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: transform 0.25s var(--ease-spring), box-shadow 0.25s var(--ease-spring),
+                background-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
   }
 
   .card-arrow:hover {
-    border-color: var(--color-black);
-    background-color: var(--color-bg-hero);
+    background-color: var(--terra);
+    color: var(--paper);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .card-arrow:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--ink);
   }
 
   .card-arrow svg {
@@ -150,7 +169,7 @@ const { name, description, tags, image, href } = Astro.props;
   }
 
   .card-description {
-    color: var(--color-gray);
+    color: var(--muted);
     font-size: 0.95rem;
     line-height: 1.65;
   }
@@ -162,11 +181,7 @@ const { name, description, tags, image, href } = Astro.props;
     }
 
     .card-image {
-      height: 180px;
-    }
-
-    .card-tag {
-      font-size: 0.6rem;
+      height: 170px;
     }
 
     .card-arrow {

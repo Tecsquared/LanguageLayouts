@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Page Not Found — Language Layouts"
+  description="That page doesn't exist in any language we know."
+>
+  <Navbar />
+
+  <main class="lost">
+    <div class="container lost-inner">
+      <div class="lost-code" aria-hidden="true">
+        <span class="lost-digit">4</span>
+        <span class="lost-bubble">
+          <svg viewBox="0 0 120 120" fill="none">
+            <path
+              d="M60 8 C90 8, 112 30, 112 58 C112 86, 90 106, 60 106 C52 106, 44 104, 38 101 L16 108 L23 88 C13 78, 8 69, 8 58 C8 30, 30 8, 60 8 Z"
+              stroke="var(--ink)"
+              stroke-width="5"
+              fill="var(--card)"
+              stroke-linejoin="round"
+            />
+            <text x="60" y="72" text-anchor="middle" font-size="40" font-weight="bold" fill="var(--terra)" id="lost-question">?</text>
+          </svg>
+        </span>
+        <span class="lost-digit">4</span>
+      </div>
+
+      <h1 class="lost-title">Lost in translation</h1>
+      <p class="lost-copy">
+        This page doesn't exist in any language we know.
+        Let's get you back to familiar vocabulary.
+      </p>
+
+      <a href="/" class="btn btn-primary">Back to the homepage</a>
+      <p class="lost-note hand-note" aria-hidden="true">it happens to the best of us</p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .lost {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 140px 0 80px;
+  }
+
+  .lost-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .lost-code {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .lost-digit {
+    font-family: var(--font-heading);
+    font-size: clamp(5rem, 16vw, 8.5rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .lost-digit:first-child {
+    transform: rotate(-5deg);
+  }
+
+  .lost-digit:last-child {
+    transform: rotate(4deg);
+  }
+
+  .lost-bubble {
+    width: clamp(80px, 14vw, 130px);
+    animation: bobble 2.6s ease-in-out infinite;
+  }
+
+  .lost-bubble svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .lost-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .lost-copy {
+    color: var(--muted);
+    max-width: 42ch;
+    margin-bottom: 30px;
+    text-wrap: pretty;
+  }
+
+  .lost-note {
+    margin-top: 18px;
+    transform: rotate(-2deg);
+    color: var(--muted);
+  }
+</style>
+
+<script>
+  // The lost speech bubble wonders in several scripts
+  const marks = ['?', '؟', '¿', '？'];
+  const q = document.getElementById('lost-question');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (q && !reduced) {
+    let qi = 0;
+    setInterval(() => {
+      qi = (qi + 1) % marks.length;
+      q.textContent = marks[qi];
+    }, 1600);
+  }
+</script>

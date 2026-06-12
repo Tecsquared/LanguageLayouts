@@ -48,7 +48,13 @@ import { strands } from '../data/templates';
       <path class="waveform-highlight" data-wave="highlight" d=""></path>
     </svg>
 
-    <p class="strands-hint reveal">Click on the strands or labels to explore each component of Paul Nation's framework.</p>
+    <p class="strands-hint reveal">
+      <svg class="hint-arrow" viewBox="0 0 50 26" fill="none" aria-hidden="true">
+        <path d="M46 22 C34 20, 20 16, 10 5" stroke="var(--terra)" stroke-width="1.8" stroke-linecap="round" fill="none" />
+        <path d="M7 12 L9 4 L17 6" stroke="var(--terra)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      </svg>
+      <span class="hand-note">pull a strand or a label — go on, give it a tug</span>
+    </p>
   </div>
 </section>
 
@@ -126,31 +132,34 @@ import { strands } from '../data/templates';
     font-weight: 700;
     font-size: 1.25rem;
     letter-spacing: -0.01em;
-    color: var(--color-black);
-    transition: opacity 0.2s;
+    color: var(--ink);
+    transition: opacity 0.2s, transform 0.3s var(--ease-spring);
   }
-  .strand-btn:hover { opacity: 0.75; }
+  .strand-btn:hover {
+    opacity: 0.8;
+    transform: translateX(4px);
+  }
 
   .strand-dot {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    border: 2px solid var(--color-gray-dark);
+    border: 2px solid var(--ink-soft);
     background: transparent;
     flex-shrink: 0;
     transition:
       background-color 0.4s var(--ease-expo),
       border-color 0.4s var(--ease-expo),
-      transform 0.4s var(--ease-expo);
+      transform 0.4s var(--ease-spring);
   }
   .strand-btn.active .strand-dot {
-    background: var(--strand-color, var(--color-black));
-    border-color: var(--strand-color, var(--color-black));
-    transform: scale(1.1);
+    background: var(--strand-color, var(--ink));
+    border-color: var(--strand-color, var(--ink));
+    transform: scale(1.18);
   }
 
   .strand-desc {
-    color: var(--color-gray);
+    color: var(--muted);
     font-size: 0.95rem;
     line-height: 1.65;
     padding-left: 32px;
@@ -184,9 +193,10 @@ import { strands } from '../data/templates';
     overflow: visible;
   }
   .waveform-base {
-    stroke: var(--color-black);
+    stroke: var(--ink);
     stroke-width: 1.25;
     fill: none;
+    opacity: 0.65;
   }
   .waveform-highlight {
     stroke-width: 2;
@@ -195,10 +205,23 @@ import { strands } from '../data/templates';
   }
 
   .strands-hint {
-    text-align: center;
-    color: var(--color-gray-light);
-    font-size: 0.85rem;
-    margin: 32px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 8px;
+    margin: 30px 0 0;
+  }
+
+  .hint-arrow {
+    width: 38px;
+    height: 20px;
+    margin-top: 4px;
+  }
+
+  .strands-hint .hand-note {
+    font-size: 1.25rem;
+    color: var(--muted);
+    transform: rotate(-1.5deg);
   }
 
   @media (max-width: 760px) {
@@ -322,12 +345,13 @@ import { strands } from '../data/templates';
       return d;
     }
 
-    const GREY: [number, number, number] = [212, 212, 212];
+    /* Resting grey is warm to sit on Vellum; accents are the brand strand colours */
+    const GREY: [number, number, number] = [211, 203, 188];
     const ACCENT_RGB: Record<string, [number, number, number]> = {
-      input:    [255, 107, 107],
-      output:   [78, 205, 196],
-      language: [155, 89, 182],
-      fluency:  [255, 140, 66],
+      input:    [90, 127, 110],   /* MFI green  #5A7F6E */
+      output:   [122, 107, 160],  /* MFO purple #7A6BA0 */
+      language: [196, 154, 60],   /* LFL gold   #C49A3C */
+      fluency:  [107, 141, 181],  /* FD blue    #6B8DB5 */
     };
 
     function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }

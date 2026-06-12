@@ -1,15 +1,30 @@
 ---
 const year = new Date().getFullYear();
+
+const goodbyes = [
+  'Goodbye', 'ลาก่อน', 'Adiós', 'Au revoir', 'さようなら', 'Tschüss',
+  'Ciao', '再见', '안녕', 'Tot ziens', 'Hej då', 'Tchau', 'Selamat tinggal', 'Do widzenia',
+];
 ---
 
 <footer class="site-footer">
+  <!-- Multilingual goodbye marquee -->
+  <div class="goodbye-marquee" aria-hidden="true">
+    <div class="goodbye-track">
+      {[...goodbyes, ...goodbyes].map((word, i) => (
+        <span class="goodbye-word" style={`--gw: ${i % 4};`}>{word}</span>
+      ))}
+    </div>
+  </div>
+
   <div class="container footer-inner">
     <div class="footer-brand">
       <span class="footer-logo">Language Layouts</span>
       <p class="footer-tagline">Research-backed Notion templates for language learners and teachers.</p>
+      <p class="footer-hand hand-note">from a language teacher who never stopped being a learner</p>
     </div>
 
-    <nav class="footer-nav">
+    <nav class="footer-nav" aria-label="Footer">
       <a href="#framework">Framework</a>
       <a href="#templates">Templates</a>
       <a href="#coaching">Coaching</a>
@@ -30,14 +45,47 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    padding: 48px 0 32px;
-    border-top: 1px solid var(--color-border);
+    padding: 0 0 32px;
+    border-top: 2px solid var(--ink);
+    background: var(--paper-deep);
   }
+
+  .goodbye-marquee {
+    overflow: hidden;
+    padding: 22px 0;
+    border-bottom: 1px dashed var(--driftwood);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+
+  .goodbye-track {
+    display: flex;
+    gap: 48px;
+    width: max-content;
+    animation: marquee-scroll 38s linear infinite;
+  }
+
+  .goodbye-marquee:hover .goodbye-track {
+    animation-play-state: paused;
+  }
+
+  .goodbye-word {
+    font-family: var(--font-hand);
+    font-size: 1.5rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .goodbye-word[style*='--gw: 0'] { color: var(--mfi); }
+  .goodbye-word[style*='--gw: 1'] { color: var(--mfo); }
+  .goodbye-word[style*='--gw: 2'] { color: var(--lfl); }
+  .goodbye-word[style*='--gw: 3'] { color: var(--fd); }
 
   .footer-inner {
     display: flex;
     flex-direction: column;
     gap: 32px;
+    padding-top: 40px;
   }
 
   .footer-brand {
@@ -48,15 +96,20 @@ const year = new Date().getFullYear();
 
   .footer-logo {
     font-family: var(--font-heading);
-    font-weight: 900;
+    font-weight: 800;
     font-size: 1.2rem;
     letter-spacing: -0.02em;
   }
 
   .footer-tagline {
     font-size: 0.85rem;
-    color: var(--color-gray);
-    max-width: 320px;
+    color: var(--muted);
+    max-width: 340px;
+  }
+
+  .footer-hand {
+    font-size: 1.2rem;
+    margin-top: 2px;
   }
 
   .footer-nav {
@@ -65,17 +118,14 @@ const year = new Date().getFullYear();
   }
 
   .footer-nav a {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-gray-dark);
-    text-decoration: none;
-    transition: color 0.2s;
+    color: var(--ink-soft);
+    transition: color 0.2s var(--ease-out);
   }
 
   .footer-nav a:hover {
-    color: var(--color-black);
+    color: var(--terra);
   }
 
   .footer-bottom {
@@ -83,33 +133,42 @@ const year = new Date().getFullYear();
     justify-content: space-between;
     align-items: center;
     padding-top: 24px;
-    border-top: 1px solid var(--color-border);
+    border-top: 1px dashed var(--driftwood);
   }
 
   .footer-copy {
     font-size: 0.75rem;
-    color: var(--color-gray-light);
+    color: var(--muted);
   }
 
   .back-to-top {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    color: var(--color-gray);
-    text-decoration: none;
-    transition: color 0.2s;
+    color: var(--ink-soft);
+    transition: color 0.2s var(--ease-out);
   }
 
   .back-to-top:hover {
-    color: var(--color-black);
+    color: var(--terra);
+  }
+
+  .back-to-top:hover svg {
+    animation: bobble 0.7s var(--ease-spring);
   }
 
   @media (max-width: 768px) {
     .footer-nav {
       flex-wrap: wrap;
       gap: 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .goodbye-track {
+      animation: none;
     }
   }
 </style>
