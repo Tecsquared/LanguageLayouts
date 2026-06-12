@@ -185,13 +185,16 @@ const { name, description, tags, image, href } = Astro.props;
   }
 
   .card-arrow {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 2px solid var(--ink);
     background: var(--card);
     color: var(--ink);
     cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
     display: flex;
     align-items: center;
     justify-content: center;

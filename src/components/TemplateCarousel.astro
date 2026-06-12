@@ -264,30 +264,57 @@ import { templates } from '../data/templates';
       updatePositions();
     }
 
-    // One delegated listener (capture phase) handles arrows and side cards,
-    // so a click can never fall through to the card link by mistake
-    wrapper.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
+    // Arrows and side cards are handled at BOTH pointerup and click level.
+    // Some input pipelines (embedded previews, certain touch webviews) never
+    // deliver a synthesized click to buttons — pointerup always arrives.
+    // A timestamp guard stops normal browsers from double-stepping when both
+    // events fire for the same press.
+    let lastHandled = 0;
+    let downX = 0;
+    let downY = 0;
 
-      const arrow = target.closest('.card-prev-inner, .card-next-inner');
-      if (arrow) {
+    wrapper.addEventListener('pointerdown', (e) => {
+      downX = e.clientX;
+      downY = e.clientY;
+    }, true);
+
+    function handleActivate(e: Event) {
+      // A drag/swipe that happens to end on a card is not a press
+      if (e.type === 'pointerup') {
+        const pe = e as PointerEvent;
+        if (Math.hypot(pe.clientX - downX, pe.clientY - downY) > 10) return;
+      }
+
+      const target = e.target as HTMLElement;
+      const arrow = target.closest?.('.card-prev-inner, .card-next-inner');
+      const item = target.closest?.('.carousel-3d-item') as HTMLElement | null;
+      if (!arrow && !item) return;
+
+      const itemIdx = item ? parseInt(item.dataset.index || '0') : currentIndex;
+
+      // Block the link for arrow presses and for side-card presses;
+      // presses on the active card's link area pass through untouched
+      if (arrow || itemIdx !== currentIndex) {
         e.preventDefault();
         e.stopPropagation();
-        goToSlide(currentIndex + (arrow.classList.contains('card-next-inner') ? 1 : -1));
+      } else {
         return;
       }
 
-      const item = target.closest('.carousel-3d-item') as HTMLElement | null;
-      if (item) {
-        const idx = parseInt(item.dataset.index || '0');
-        if (idx !== currentIndex) {
-          // Side card clicked: bring it to the front instead of following its link
-          e.preventDefault();
-          e.stopPropagation();
-          goToSlide(idx);
-        }
+      const now = performance.now();
+      if (now - lastHandled < 350) return;
+      lastHandled = now;
+
+      if (itemIdx !== currentIndex) {
+        // Side card: bring it to the front, whatever was pressed on it
+        goToSlide(itemIdx);
+      } else if (arrow) {
+        goToSlide(currentIndex + (arrow.classList.contains('card-next-inner') ? 1 : -1));
       }
-    }, true);
+    }
+
+    wrapper.addEventListener('pointerup', handleActivate, true);
+    wrapper.addEventListener('click', handleActivate, true);
 
     // Dot handlers
     dots.forEach((dot) => {
