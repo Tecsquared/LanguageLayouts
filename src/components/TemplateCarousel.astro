@@ -301,8 +301,10 @@ import { templates } from '../data/templates';
         return;
       }
 
+      // Just long enough to swallow the click that follows the same press's
+      // pointerup, short enough that eager repeated clicking spins freely
       const now = performance.now();
-      if (now - lastHandled < 350) return;
+      if (now - lastHandled < 150) return;
       lastHandled = now;
 
       if (itemIdx !== currentIndex) {

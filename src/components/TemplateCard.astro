@@ -199,20 +199,19 @@ const { name, description, tags, image, href } = Astro.props;
     align-items: center;
     justify-content: center;
     box-shadow: 2px 2px 0 var(--ink);
-    transition: transform 0.25s var(--ease-spring), box-shadow 0.25s var(--ease-spring),
-                background-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
+    /* Colour-only feedback: the button must never move, or it slips
+       out from under the cursor and hover/click start flickering */
+    transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
   }
 
   .card-arrow:hover {
     background-color: var(--terra);
     color: var(--paper);
-    transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0 var(--ink);
   }
 
   .card-arrow:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0 var(--ink);
+    background-color: var(--terra-deep);
+    color: var(--paper);
   }
 
   .card-arrow svg {
