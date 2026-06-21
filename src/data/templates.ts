@@ -43,6 +43,7 @@ export const templates = [
     ],
     image: 'language-learning-planner.png',
     link: 'https://www.notion.com/templates/language-learning-planner-205',
+    price: '0',
   },
   {
     name: 'Lesson Planner',
@@ -53,6 +54,7 @@ export const templates = [
     ],
     image: 'lesson-planner.png',
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-basic',
+    price: '0',
   },
   {
     name: 'Vocab Tracker',
@@ -63,6 +65,7 @@ export const templates = [
     ],
     image: 'vocab-builder.png',
     link: 'https://www.notion.com/templates/language-layouts-vocabulary',
+    price: '10',
   },
   {
     name: 'Language Learning Plus',
@@ -73,6 +76,7 @@ export const templates = [
     ],
     image: 'language-learner-plus.jpeg',
     link: 'https://www.notion.com/templates/language-layouts-language-learning-plus',
+    price: '29',
   },
   {
     name: 'Lesson Planner Plus',
@@ -83,6 +87,7 @@ export const templates = [
     ],
     image: 'lesson-planner-plus.jpeg',
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-plus',
+    price: '10',
   },
   {
     name: 'The Online Language Teacher',
@@ -93,6 +98,7 @@ export const templates = [
       { text: 'Coming Soon', color: DRIFTWOOD },
     ],
     image: 'online-language-teacher.png',
+    price: '49',
   },
 ];
 

@@ -21,24 +21,25 @@ const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Language Layouts templates',
-  itemListElement: liveTemplates.map((t, i) => {
-    const isFree = t.tags.some((tag) => tag.text === 'Free');
-    return {
-      '@type': 'ListItem',
-      position: i + 1,
-      item: {
-        '@type': 'Product',
-        name: t.name,
-        description: t.description,
+  itemListElement: liveTemplates.map((t, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Product',
+      name: t.name,
+      description: t.description,
+      url: t.link,
+      image: `${SITE}/images/${t.image}`,
+      brand: { '@id': `${SITE}/#organization` },
+      offers: {
+        '@type': 'Offer',
+        availability: 'https://schema.org/InStock',
+        price: t.price ?? '0',
+        priceCurrency: 'USD',
         url: t.link,
-        image: `${SITE}/images/${t.image}`,
-        brand: { '@id': `${SITE}/#organization` },
-        offers: isFree
-          ? { '@type': 'Offer', availability: 'https://schema.org/InStock', price: '0', priceCurrency: 'USD', url: t.link }
-          : { '@type': 'Offer', availability: 'https://schema.org/InStock', category: 'Paid', url: t.link },
       },
-    };
-  }),
+    },
+  })),
 };
 ---
 
