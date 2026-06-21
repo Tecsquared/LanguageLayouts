@@ -95,9 +95,9 @@ export const templates = [
     tags: [
       { text: 'Teacher', color: FD_BLUE },
       { text: 'Paid', color: LFL_GOLD },
-      { text: 'Coming Soon', color: DRIFTWOOD },
     ],
     image: 'online-language-teacher.png',
+    link: 'https://www.notion.com/templates/the-online-language-teacher-language-layouts',
     price: '49',
   },
 ];
