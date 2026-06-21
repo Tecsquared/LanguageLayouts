@@ -1,0 +1,54 @@
+# Language Layouts (full index)
+
+> Notion templates for language learners and teachers, built on Paul Nation's Four Strands framework. Made by Damien Herlihy — "from a language teacher who never stopped being a learner."
+
+## About Language Layouts
+
+Language Layouts makes Notion templates and offers coaching for two audiences: language learners who
+want a system for true mastery, and language teachers who want to plan and deliver results. Everything
+is organised around Paul Nation's Four Strands — a research-backed way to balance how you spend
+learning (or teaching) time. The maker is Damien Herlihy, a TESOL-trained language teacher who also
+co-founded the school TEC in Trat, Thailand, and writes at damienherlihy.com.
+
+Design language draws on warm, paper-like neutrals; each of the Four Strands has its own colour for
+tagging and visual coding.
+
+## Templates
+
+### For learners
+- Language Learning Planner — Free. Plan and track balanced study across all four strands so you
+  always know what to work on next. https://www.notion.com/templates/language-learning-planner-205
+- Vocab Tracker — Paid. Build conversational confidence through word cards, spaced repetition, and
+  context-rich vocabulary. https://www.notion.com/templates/language-layouts-vocabulary
+- Language Learning Plus — Paid. Everything in the free planner plus vocab recording, learning
+  resources, and goal-setting. https://www.notion.com/templates/language-layouts-language-learning-plus
+
+### For teachers
+- Lesson Planner — Free. Plan four-strand lessons that balance input, output, language focus and
+  fluency in every class. https://www.notion.com/templates/language-layouts-lesson-planner-basic
+- Lesson Planner Plus — Paid. A complete teaching workspace for planning, tracking student progress,
+  managing homework, and task management. https://www.notion.com/templates/language-layouts-lesson-planner-plus
+- The Online Language Teacher — Paid, coming soon. The total online language tutor solution.
+
+## Services
+- One-on-One Coaching — personalised guidance on using your template, building better teaching
+  habits, or planning your language learning.
+- Deep Dive Sessions — focused problem-solving for adapting your template or customising your Notion.
+- Space Transformation — we design and build a complete Notion workspace tailored to how you learn or
+  teach, from scratch or from an existing setup.
+
+## The Four Strands
+- Meaning-Focused Input (MFI) — learning through listening and reading you can mostly understand;
+  comprehensible input and extensive reading.
+- Meaning-Focused Output (MFO) — learning through speaking and writing real ideas; pushed output and
+  task repetition.
+- Language-Focused Learning (LFL) — deliberate study of grammar, vocabulary, pronunciation, spelling.
+- Fluency Development (FD) — becoming fluent with known material; speed, ease, 4/3/2, repeated reading.
+- Balance: aim for roughly 25% of time in each strand.
+
+## Connect
+- Notion marketplace: https://www.notion.com/@languagelayouts
+- YouTube: https://www.youtube.com/@damienherlihy
+- Newsletter (disASTER): https://dis-aster.vercel.app/
+- Contact: damienmherlihy@gmail.com
+- Made by: Damien Herlihy — https://www.damienherlihy.com/

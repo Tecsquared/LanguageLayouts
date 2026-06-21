@@ -2,14 +2,52 @@
 interface Props {
   title?: string;
   description?: string;
+  schema?: object | object[];
 }
 
 const {
   title = 'Language Layouts — Notion Templates for Language Learners',
   description = 'Notion templates built for language learners who want true mastery and teachers who deliver results.',
+  schema,
 } = Astro.props;
 
 const siteUrl = 'https://www.languagelayouts.com';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
+
+// Brand identity graph — the Organization, the WebSite, and Damien (cross-linked to his blog @id).
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteUrl}/#organization`,
+  name: 'Language Layouts',
+  url: `${siteUrl}/`,
+  logo: `${siteUrl}/favicon.svg`,
+  image: `${siteUrl}/images/hero-globe.png`,
+  description:
+    "Notion templates for language learners and teachers, built on Paul Nation's Four Strands framework.",
+  slogan: 'From a language teacher who never stopped being a learner',
+  founder: {
+    '@type': 'Person',
+    '@id': 'https://www.damienherlihy.com/#damien',
+    name: 'Damien Herlihy',
+    url: 'https://www.damienherlihy.com/',
+  },
+  sameAs: [
+    'https://www.notion.com/@languagelayouts',
+    'https://www.youtube.com/@damienherlihy',
+    'https://dis-aster.vercel.app/',
+  ],
+};
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  name: 'Language Layouts',
+  url: `${siteUrl}/`,
+  inLanguage: 'en',
+  publisher: { '@id': `${siteUrl}/#organization` },
+  about: 'Notion templates for language learners and teachers using the Four Strands framework',
+};
 ---
 
 <!DOCTYPE html>
@@ -19,6 +57,7 @@ const siteUrl = 'https://www.languagelayouts.com';
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <!-- Social sharing -->
@@ -35,6 +74,9 @@ const siteUrl = 'https://www.languagelayouts.com';
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 </head>
 <body>
   <!-- Needle & thread scroll progress -->

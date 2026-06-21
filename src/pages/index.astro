@@ -11,9 +11,38 @@ import BeyondTemplates from '../components/BeyondTemplates.astro';
 import Architect from '../components/Architect.astro';
 import StayConnected from '../components/StayConnected.astro';
 import Footer from '../components/Footer.astro';
+import { templates } from '../data/templates';
+
+const SITE = 'https://www.languagelayouts.com';
+const liveTemplates = templates.filter(
+  (t) => t.link && !t.tags.some((tag) => tag.text === 'Coming Soon')
+);
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Language Layouts templates',
+  itemListElement: liveTemplates.map((t, i) => {
+    const isFree = t.tags.some((tag) => tag.text === 'Free');
+    return {
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Product',
+        name: t.name,
+        description: t.description,
+        url: t.link,
+        image: `${SITE}/images/${t.image}`,
+        brand: { '@id': `${SITE}/#organization` },
+        offers: isFree
+          ? { '@type': 'Offer', availability: 'https://schema.org/InStock', price: '0', priceCurrency: 'USD', url: t.link }
+          : { '@type': 'Offer', availability: 'https://schema.org/InStock', category: 'Paid', url: t.link },
+      },
+    };
+  }),
+};
 ---
 
-<BaseLayout>
+<BaseLayout schema={productSchema}>
   <Navbar />
   <Hero />
   <SquigglyDivider />

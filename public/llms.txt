@@ -1,0 +1,33 @@
+# Language Layouts
+
+> Notion templates for language learners and teachers, built on Paul Nation's Four Strands framework. Made by Damien Herlihy — "from a language teacher who never stopped being a learner."
+
+## About
+- What: Notion templates and coaching that help learners study with a balanced system, and help teachers plan four-strand lessons.
+- Framework: Paul Nation's Four Strands — Meaning-Focused Input, Meaning-Focused Output, Language-Focused Learning, and Fluency Development (aim for ~25% each).
+- Maker: Damien Herlihy — language teacher (TESOL), who also runs the school TEC and writes at damienherlihy.com.
+
+## Templates
+- [Language Learning Planner](https://www.notion.com/templates/language-learning-planner-205) — Free · for learners — plan and track balanced study across all four strands.
+- [Lesson Planner](https://www.notion.com/templates/language-layouts-lesson-planner-basic) — Free · for teachers — plan four-strand lessons.
+- [Vocab Tracker](https://www.notion.com/templates/language-layouts-vocabulary) — Paid · for learners — word cards, spaced repetition, context-rich vocabulary.
+- [Language Learning Plus](https://www.notion.com/templates/language-layouts-language-learning-plus) — Paid · for learners — the planner plus vocab recording, resources, and goal setting.
+- [Lesson Planner Plus](https://www.notion.com/templates/language-layouts-lesson-planner-plus) — Paid · for teachers — a complete teaching workspace (planning, progress, homework).
+- The Online Language Teacher — Paid · for teachers — coming soon.
+
+## Services
+- One-on-One Coaching — personalised guidance on using your template and building habits.
+- Deep Dive Sessions — focused help adapting your template or Notion setup.
+- Space Transformation — a complete custom Notion workspace built for how you learn or teach.
+
+## The Four Strands (the framework behind everything)
+- Meaning-Focused Input — learn by listening to and reading things you mostly understand.
+- Meaning-Focused Output — grow by speaking and writing to communicate real ideas.
+- Language-Focused Learning — study the building blocks directly (grammar, vocabulary, pronunciation).
+- Fluency Development — get faster and smoother with what you already know.
+
+## Connect
+- Notion marketplace: https://www.notion.com/@languagelayouts
+- YouTube: https://www.youtube.com/@damienherlihy
+- Newsletter (disASTER): https://dis-aster.vercel.app/
+- Contact: damienmherlihy@gmail.com
