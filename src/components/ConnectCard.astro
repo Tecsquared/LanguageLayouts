@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { icon, title, subtitle, href } = Astro.props;
+const trackingId = `connect-card-${icon}`;
 
 const iconColors: Record<string, string> = {
   notion: 'var(--terra)',
@@ -18,7 +19,7 @@ const iconColors: Record<string, string> = {
 const iconColor = iconColors[icon] || 'var(--terra)';
 ---
 
-<a href={href} class="connect-card" target="_blank" rel="noopener noreferrer">
+<a href={href} id={trackingId} class="connect-card" target="_blank" rel="noopener noreferrer">
   <span class="connect-icon" style={`--icon-color: ${iconColor};`} aria-hidden="true">
     {icon === 'notion' && (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -57,6 +58,12 @@ const iconColor = iconColors[icon] || 'var(--terra)';
     </svg>
   </div>
 </a>
+
+<script is:inline define:vars={{ trackingId, linkTitle: title }}>
+  document.getElementById(trackingId)?.addEventListener('click', function () {
+    window.posthog?.capture('connect_link_clicked', { link_title: linkTitle });
+  });
+</script>
 
 <style>
   .connect-card {

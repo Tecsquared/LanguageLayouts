@@ -513,6 +513,7 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
 
   if (cta && !reducedMotion) {
     cta.addEventListener('click', () => {
+      window.posthog?.capture('hero_cta_clicked');
       const rect = cta.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
