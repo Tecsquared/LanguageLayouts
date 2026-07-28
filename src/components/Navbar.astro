@@ -341,6 +341,12 @@ const logoWord = 'Language Layouts';
     setMenu(!overlay.classList.contains('open'));
   });
 
+  document.querySelectorAll<HTMLAnchorElement>('.navbar-cta, .menu-cta').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      (window as any).posthog?.capture('navbar_cta_clicked');
+    });
+  });
+
   overlay.querySelectorAll('a').forEach((a) => {
     a.addEventListener('click', () => setMenu(false));
   });

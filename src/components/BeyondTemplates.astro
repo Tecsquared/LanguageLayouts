@@ -32,6 +32,15 @@ import { services } from '../data/templates';
   </div>
 </section>
 
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-carousel="services"] .card-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      const name = link.closest('.template-card')?.querySelector('.card-name')?.textContent?.trim() || '';
+      (window as any).posthog?.capture('coaching_inquiry_clicked', { service_name: name });
+    });
+  });
+</script>
+
 <style>
   .carousel-3d-clip {
     overflow: visible;

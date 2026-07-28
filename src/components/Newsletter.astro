@@ -25,6 +25,19 @@
 ></script>
 <!-- End Audienceful.js -->
 
+<script is:inline>
+  (function () {
+    var container = document.getElementById('audienceful-5qfwcu');
+    if (!container) return;
+    container.addEventListener('click', function (e) {
+      var target = e.target;
+      if (target && (target.type === 'submit' || target.tagName === 'BUTTON')) {
+        window.posthog?.capture('newsletter_subscribe_clicked');
+      }
+    });
+  })();
+</script>
+
 <style>
   .newsletter {
     padding-top: 0;

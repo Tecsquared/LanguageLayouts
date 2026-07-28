@@ -339,7 +339,12 @@ import { strands } from '../data/templates';
     document.querySelectorAll<HTMLElement>('[data-strand-click]').forEach((el) => {
       el.addEventListener('click', (e) => {
         e.preventDefault();
-        setActive(el.dataset.strandClick!);
+        const strandId = el.dataset.strandClick!;
+        const isDeselecting = strandId === activeId;
+        setActive(strandId);
+        if (!isDeselecting) {
+          (window as any).posthog?.capture('strand_explored', { strand: strandId });
+        }
       });
     });
 

@@ -349,4 +349,12 @@ import { templates } from '../data/templates';
 
   // Init all carousels on the page
   document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel3D);
+
+  // Track template card opens
+  document.querySelectorAll<HTMLAnchorElement>('[data-carousel="templates"] .card-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      const name = link.closest('.template-card')?.querySelector('.card-name')?.textContent?.trim() || '';
+      (window as any).posthog?.capture('template_opened', { template_name: name });
+    });
+  });
 </script>
