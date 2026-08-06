@@ -33,7 +33,7 @@ const goodbyes = [
     </nav>
 
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; {year} Language Layouts. All rights reserved.</span>
+      <span class="footer-copy">&copy; {year} Language Layouts. All rights reserved. &middot; <a class="footer-privacy" href="/privacy">Privacy</a></span>
       <a href="#" class="back-to-top" aria-label="Back to top">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M8 14V2M8 2L3 7M8 2L13 7" />
@@ -141,6 +141,11 @@ const goodbyes = [
   .footer-copy {
     font-size: 0.75rem;
     color: var(--muted);
+  }
+
+  .footer-privacy {
+    color: var(--muted);
+    text-decoration: underline;
   }
 
   .back-to-top {
