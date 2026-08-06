@@ -1,5 +1,7 @@
 ---
 import PostHog from '../components/posthog.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
@@ -82,6 +84,8 @@ const websiteSchema = {
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
   <!-- Needle & thread scroll progress -->
   <div class="thread-progress" aria-hidden="true">
     <div class="thread-fill" id="thread-fill"></div>
@@ -91,7 +95,15 @@ const websiteSchema = {
     </svg>
   </div>
 
-  <slot />
+  <header>
+    <Navbar />
+  </header>
+
+  <main id="main" tabindex="-1">
+    <slot />
+  </main>
+
+  <Footer />
 
   <!-- Scroll Reveal Observer -->
   <script>

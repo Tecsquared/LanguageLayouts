@@ -11,7 +11,7 @@ const logoWord = 'Language Layouts';
 
 <nav class="navbar" id="navbar">
   <div class="navbar-pill">
-    <a href="#" class="navbar-logo" aria-label="Language Layouts — back to top">
+    <a href="#" class="navbar-logo" title="Back to top">
       {logoWord.split('').map((ch, i) => (
         ch === ' '
           ? <span class="logo-space"> </span>
@@ -34,7 +34,7 @@ const logoWord = 'Language Layouts';
       </span>
     </a>
 
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="menu-overlay">
       <span></span>
       <span></span>
     </button>
@@ -335,6 +335,14 @@ const logoWord = 'Language Layouts';
     hamburger.setAttribute('aria-expanded', String(open));
     overlay.setAttribute('aria-hidden', String(!open));
     document.body.style.overflow = open ? 'hidden' : '';
+
+    if (open) {
+      requestAnimationFrame(() => {
+        overlay.querySelector<HTMLElement>('a[href], button:not([disabled])')?.focus();
+      });
+    } else {
+      hamburger.focus();
+    }
   }
 
   hamburger.addEventListener('click', () => {

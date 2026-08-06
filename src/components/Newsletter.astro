@@ -25,6 +25,38 @@
 ></script>
 <!-- End Audienceful.js -->
 
+<!-- Audienceful accessibility patch -->
+<script is:inline>
+  (() => {
+    const container = document.querySelector('#audienceful-5qfwcu');
+    if (!container) return;
+
+    const patchAudiencefulForm = () => {
+      const emailInput = container.querySelector('input[type="email"]');
+      if (!emailInput) return;
+
+      emailInput.id = 'af-email';
+      emailInput.setAttribute('autocomplete', 'email');
+
+      let label = container.querySelector('label[for="af-email"]');
+      if (!label) {
+        label = document.createElement('label');
+        label.className = 'visually-hidden';
+        label.htmlFor = 'af-email';
+        label.textContent = 'Email address';
+        emailInput.before(label);
+      }
+    };
+
+    patchAudiencefulForm();
+    window.addEventListener('load', patchAudiencefulForm, { once: true });
+    new MutationObserver(patchAudiencefulForm).observe(container, {
+      childList: true,
+      subtree: true,
+    });
+  })();
+</script>
+
 <script is:inline>
   (function () {
     var container = document.getElementById('audienceful-5qfwcu');

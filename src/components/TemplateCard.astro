@@ -30,7 +30,7 @@ const { name, description, tags, image, href } = Astro.props;
 
     <div class="card-image">
       {image ? (
-        <img src={`/images/${image}`} alt={`${name} template preview`} loading="lazy" />
+        <img src={`/images/${image}`} alt={`${name} template preview`} width="1000" height="1000" loading="lazy" />
       ) : (
         <div class="card-image-placeholder">
           <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">

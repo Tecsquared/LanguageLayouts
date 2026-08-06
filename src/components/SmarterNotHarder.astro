@@ -14,13 +14,25 @@
       <div class="comparison-slider" id="comparison-slider">
         <!-- Smarter image (background, full width) -->
         <div class="slider-img slider-img-smarter">
-          <img src="/images/smarter-illustration.png" alt="Smarter learning — focused, effective study" draggable="false" />
+          <img src="/images/smarter-illustration.png" alt="Smarter learning — focused, effective study" width="1000" height="1000" loading="lazy" draggable="false" />
         </div>
 
         <!-- Harder image (foreground, clipped by slider) -->
         <div class="slider-img slider-img-harder" id="slider-harder">
-          <img src="/images/learner-illustration.png" alt="Harder learning — overwhelmed, repetitive study" draggable="false" />
+          <img src="/images/learner-illustration.png" alt="Harder learning — overwhelmed, repetitive study" width="1000" height="1000" loading="lazy" draggable="false" />
         </div>
+
+        <input
+          class="comparison-range"
+          id="comparison-range"
+          type="range"
+          min="0"
+          max="100"
+          value="100"
+          step="1"
+          aria-label="Compare harder and smarter learning"
+          aria-valuetext="100% harder, 0% smarter"
+        />
 
         <!-- Label inside the card — switches based on slider position -->
         <span class="slider-label slider-label-harder" id="slider-label-harder">HARDER</span>
@@ -106,6 +118,26 @@
     z-index: 1;
   }
 
+  .comparison-range {
+    position: absolute;
+    inset: 0;
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+
+  .comparison-range:focus-visible {
+    outline: none;
+  }
+
+  .comparison-range:focus-visible ~ .slider-divider .slider-handle {
+    outline: 3px dashed var(--terra);
+    outline-offset: 4px;
+  }
+
   .slider-label {
     position: absolute;
     bottom: 20px;
@@ -168,8 +200,7 @@
     align-items: center;
     justify-content: center;
     box-shadow: 2px 2px 0 var(--ink);
-    pointer-events: auto;
-    cursor: ew-resize;
+    pointer-events: none;
     transition: transform 0.3s var(--ease-spring);
   }
 
@@ -258,13 +289,13 @@
 
 <script>
   const slider = document.getElementById('comparison-slider');
+  const range = document.getElementById('comparison-range') as HTMLInputElement;
   const harderLayer = document.getElementById('slider-harder') as HTMLElement;
   const divider = document.getElementById('slider-divider') as HTMLElement;
   const labelHarder = document.getElementById('slider-label-harder') as HTMLElement;
   const labelSmarter = document.getElementById('slider-label-smarter') as HTMLElement;
 
-  if (slider && harderLayer && divider) {
-    let isDragging = false;
+  if (slider && range && harderLayer && divider) {
 
     // --- Whoosh: a short burst of filtered noise, synthesised on the fly ---
     let audioCtx: AudioContext | null = null;
@@ -310,11 +341,8 @@
 
     let lastSide: string | null = null;
 
-    function updateSlider(clientX: number) {
-      const rect = slider!.getBoundingClientRect();
-      let x = clientX - rect.left;
-      x = Math.max(0, Math.min(x, rect.width));
-      const pct = (x / rect.width) * 100;
+    function updateSlider(value: number) {
+      const pct = Math.max(0, Math.min(value, 100));
 
       harderLayer.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
       divider.style.left = `${pct}%`;
@@ -334,38 +362,18 @@
       // Whoosh as the divider sweeps past the middle
       if (lastSide && side !== lastSide) whoosh(1);
       lastSide = side;
+
+      range.setAttribute('aria-valuetext', `${Math.round(pct)}% harder, ${Math.round(100 - pct)}% smarter`);
     }
 
-    slider.addEventListener('mousedown', (e) => {
-      isDragging = true;
+    range.addEventListener('pointerdown', () => {
       whoosh(0.55);
-      updateSlider(e.clientX);
     });
 
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      updateSlider(e.clientX);
+    range.addEventListener('input', () => {
+      updateSlider(Number(range.value));
     });
 
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    // Touch support
-    slider.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      whoosh(0.55);
-      updateSlider(e.touches[0].clientX);
-    }, { passive: true });
-
-    window.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      updateSlider(e.touches[0].clientX);
-    }, { passive: true });
-
-    window.addEventListener('touchend', () => {
-      isDragging = false;
-    });
+    updateSlider(Number(range.value));
   }
 </script>

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import SquigglyDivider from '../components/SquigglyDivider.astro';
 import SoundsFamiliar from '../components/SoundsFamiliar.astro';
@@ -11,7 +10,6 @@ import Newsletter from '../components/Newsletter.astro';
 import BeyondTemplates from '../components/BeyondTemplates.astro';
 import Architect from '../components/Architect.astro';
 import StayConnected from '../components/StayConnected.astro';
-import Footer from '../components/Footer.astro';
 import { templates } from '../data/templates';
 
 const SITE = 'https://www.languagelayouts.com';
@@ -45,7 +43,6 @@ const productSchema = {
 ---
 
 <BaseLayout schema={productSchema}>
-  <Navbar />
   <Hero />
   <SquigglyDivider />
   <SoundsFamiliar />
@@ -63,5 +60,4 @@ const productSchema = {
   <Architect />
   <StayConnected />
   <SquigglyDivider />
-  <Footer />
 </BaseLayout>

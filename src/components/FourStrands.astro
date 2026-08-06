@@ -4,25 +4,30 @@ import { strands } from '../data/templates';
 
 <section class="four-strands" id="framework">
   <div class="container">
-    <h2
+    <button
+      type="button"
       class="section-title reveal"
       id="strands-title"
-      role="button"
-      tabindex="0"
-      aria-label="Reset — show all four strands"
-    >'The Four Strands'</h2>
+      title="Reset to show all four strands"
+    >'The Four Strands'</button>
     <p class="section-subtitle reveal">The research-backed framework behind every Language Layout.</p>
 
     <div class="strands-content reveal">
       <div class="strands-illustration">
-        <svg viewBox="0 0 220 440" class="rope-svg" aria-hidden="true">
-          {strands.map((strand) => (
-            <path class="rope-strand-hit" data-hit={strand.id} data-strand-click={strand.id} d=""></path>
-          ))}
-          {strands.map((strand) => (
-            <path class="rope-strand" data-strand={strand.id} d=""></path>
-          ))}
-        </svg>
+        {strands.map((strand) => (
+          <button
+            type="button"
+            class="rope-strand-button"
+            data-strand-click={strand.id}
+            aria-label={`Explore ${strand.name} strand`}
+            aria-pressed="false"
+          >
+            <svg viewBox="0 0 220 440" class="rope-svg" aria-hidden="true">
+              <path class="rope-strand-hit" data-hit={strand.id} d=""></path>
+              <path class="rope-strand" data-strand={strand.id} d=""></path>
+            </svg>
+          </button>
+        ))}
       </div>
 
       <div class="strands-controls">
@@ -31,7 +36,7 @@ import { strands } from '../data/templates';
             <button
               class="strand-btn"
               data-strand-click={strand.id}
-              aria-selected="false"
+              aria-pressed="false"
               style={`--strand-color: ${strand.color};`}
             >
               <span class="strand-dot"></span>
@@ -59,6 +64,13 @@ import { strands } from '../data/templates';
   }
 
   .section-title {
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background: none;
+    border: none;
+    color: inherit;
     cursor: pointer;
     user-select: none;
     transition: opacity 0.25s var(--ease-expo);
@@ -79,6 +91,21 @@ import { strands } from '../data/templates';
     height: 440px;
     position: relative;
   }
+  .rope-strand-button {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    pointer-events: none;
+  }
+  .rope-strand-button:focus-visible {
+    outline: 2px dashed var(--terra);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
   .rope-svg {
     width: 100%;
     height: 100%;
@@ -88,6 +115,7 @@ import { strands } from '../data/templates';
 
   .rope-strand-hit {
     cursor: pointer;
+    pointer-events: stroke;
     fill: none;
     stroke: transparent;
     stroke-width: 28;
@@ -268,8 +296,6 @@ import { strands } from '../data/templates';
     document.querySelectorAll<SVGPathElement>('.rope-strand-hit').forEach((el) => {
       svgHits[el.dataset.hit!] = el;
     });
-    const svgEl = document.querySelector<SVGElement>('.rope-svg')!;
-
     function buildPath(cx: number, amp: number, phase: number, wrap = 0, samples = 44) {
       const pts: [number, number][] = [];
       const centerX = cx + (CENTER_X - cx) * wrap;
@@ -322,17 +348,16 @@ import { strands } from '../data/templates';
         else s.targetColored = 0;
       });
 
-      if (activeId && svgStrands[activeId]) {
-        svgEl.appendChild(svgStrands[activeId]);
-      }
-
       document.querySelectorAll<HTMLElement>('.strand-group').forEach((g) => {
         g.classList.toggle('active', g.dataset.group === activeId);
       });
       document.querySelectorAll<HTMLButtonElement>('.strand-btn').forEach((b) => {
         const isActive = b.dataset.strandClick === activeId;
         b.classList.toggle('active', isActive);
-        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      document.querySelectorAll<HTMLButtonElement>('.rope-strand-button').forEach((b) => {
+        b.setAttribute('aria-pressed', b.dataset.strandClick === activeId ? 'true' : 'false');
       });
     }
 
@@ -355,15 +380,15 @@ import { strands } from '../data/templates';
       document.querySelectorAll<HTMLElement>('.strand-group').forEach((g) => g.classList.remove('active'));
       document.querySelectorAll<HTMLButtonElement>('.strand-btn').forEach((b) => {
         b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      document.querySelectorAll<HTMLButtonElement>('.rope-strand-button').forEach((b) => {
+        b.setAttribute('aria-pressed', 'false');
       });
     }
     const titleEl = document.getElementById('strands-title');
     if (titleEl) {
       titleEl.addEventListener('click', resetAll);
-      titleEl.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); resetAll(); }
-      });
     }
 
     let lastT = performance.now();
