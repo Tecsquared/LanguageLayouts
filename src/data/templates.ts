@@ -41,7 +41,11 @@ export const templates = [
       { text: 'Learner', color: MFI_GREEN },
       { text: 'Free', color: TERRA },
     ],
+    // `image` stays the original PNG/JPEG — it feeds the JSON-LD Product schema in
+    // src/pages/index.astro and that URL/format must not change. `imageWebp` is the
+    // optimized copy used for the on-page <TemplateCard> display only.
     image: 'language-learning-planner.png',
+    imageWebp: 'language-learning-planner.webp',
     link: 'https://www.notion.com/templates/language-learning-planner-205',
     price: '0',
   },
@@ -53,6 +57,7 @@ export const templates = [
       { text: 'Free', color: TERRA },
     ],
     image: 'lesson-planner.png',
+    imageWebp: 'lesson-planner.webp',
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-basic',
     price: '0',
   },
@@ -64,6 +69,7 @@ export const templates = [
       { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'vocab-builder.png',
+    imageWebp: 'vocab-builder.webp',
     link: 'https://www.notion.com/templates/language-layouts-vocabulary',
     price: '10',
   },
@@ -75,6 +81,7 @@ export const templates = [
       { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'language-learner-plus.jpeg',
+    imageWebp: 'language-learner-plus.webp',
     link: 'https://www.notion.com/templates/language-layouts-language-learning-plus',
     price: '29',
   },
@@ -86,6 +93,7 @@ export const templates = [
       { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'lesson-planner-plus.jpeg',
+    imageWebp: 'lesson-planner-plus.webp',
     link: 'https://www.notion.com/templates/language-layouts-lesson-planner-plus',
     price: '10',
   },
@@ -97,6 +105,7 @@ export const templates = [
       { text: 'Paid', color: LFL_GOLD },
     ],
     image: 'online-language-teacher.png',
+    imageWebp: 'online-language-teacher.webp',
     link: 'https://www.notion.com/templates/the-online-language-teacher-language-layouts',
     price: '49',
   },
@@ -153,7 +162,7 @@ export const services = [
       { text: 'All', color: MFO_PURPLE },
       { text: 'Paid', color: LFL_GOLD },
     ],
-    image: 'coaching-illustration.png',
+    image: 'coaching-illustration.webp',
   },
   {
     name: 'Deep Dive Sessions',
@@ -162,7 +171,7 @@ export const services = [
       { text: 'All', color: MFO_PURPLE },
       { text: 'Paid', color: LFL_GOLD },
     ],
-    image: 'deep-dive-illustration.png',
+    image: 'deep-dive-illustration.webp',
   },
   {
     name: 'Space Transformation',
@@ -171,7 +180,7 @@ export const services = [
       { text: 'All', color: MFO_PURPLE },
       { text: 'Paid', color: LFL_GOLD },
     ],
-    image: 'space-transformation-illustration.png',
+    image: 'space-transformation-illustration.webp',
   },
 ];
 
