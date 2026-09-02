@@ -26,7 +26,11 @@
     <div class="architect-photo reveal" style="--reveal-rot: 7deg; --reveal-rot-end: 3deg;">
       <div class="photo-card">
         <span class="tape photo-tape"></span>
-        <img src="/images/architect-photo.webp" alt="Language Layouts architect" width="1080" height="1080" loading="lazy" />
+        <picture>
+          <source srcset="/images/architect-photo.avif" type="image/avif" />
+          <source srcset="/images/architect-photo.webp" type="image/webp" />
+          <img src="/images/architect-photo.webp" alt="Language Layouts architect" width="1080" height="1080" loading="lazy" />
+        </picture>
         <span class="photo-caption hand-note">the human behind the layouts</span>
       </div>
       <div class="photo-accent" aria-hidden="true">
@@ -110,6 +114,10 @@
     height: 360px;
     object-fit: cover;
     border-radius: 6px;
+  }
+
+  .photo-card picture {
+    display: contents;
   }
 
   .photo-tape {

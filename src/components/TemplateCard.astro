@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { name, description, tags, image, href } = Astro.props;
+const imageAvif = image?.endsWith('.webp') ? image.replace(/\.webp$/, '.avif') : null;
 ---
 
 <div class="template-card">
@@ -30,7 +31,11 @@ const { name, description, tags, image, href } = Astro.props;
 
     <div class="card-image">
       {image ? (
-        <img src={`/images/${image}`} alt={`${name} template preview`} width="1000" height="1000" loading="lazy" />
+        <picture>
+          {imageAvif && <source srcset={`/images/${imageAvif}`} type="image/avif" />}
+          {image.endsWith('.webp') && <source srcset={`/images/${image}`} type="image/webp" />}
+          <img src={`/images/${image}`} alt={`${name} template preview`} width="1000" height="1000" loading="lazy" />
+        </picture>
       ) : (
         <div class="card-image-placeholder">
           <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -130,6 +135,10 @@ const { name, description, tags, image, href } = Astro.props;
     padding: 12px;
     box-sizing: border-box;
     transition: transform 0.5s var(--ease-spring);
+  }
+
+  .card-image picture {
+    display: contents;
   }
 
   .card-link:hover .card-image img {
