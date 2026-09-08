@@ -73,13 +73,21 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
 
       <a
         class="consultant-update"
-        href="https://www.notion.com/@languagelayouts"
+        href="https://www.credly.com/badges/95b369ef-51f5-47bb-9281-1e31820a31b6/public_url"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="consultant-kicker">Consultant update</span>
-        <span>Every test passed. The formal process is complete. I&rsquo;m now a Notion consultant.</span>
-        <span aria-hidden="true">&nearr;</span>
+        <img
+          src="/images/notion-service-specialist.png"
+          alt="Notion Service Specialist badge"
+          width="2048"
+          height="2048"
+        />
+        <span class="consultant-copy">
+          <span class="consultant-kicker">Official credential</span>
+          <span>Every test passed. The formal process is complete. I&rsquo;m now a Notion consultant.</span>
+        </span>
+        <span class="consultant-arrow" aria-hidden="true">&nearr;</span>
       </a>
 
       <div class="hero-actions">
@@ -282,8 +290,8 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
 
   .consultant-update {
     display: flex;
-    align-items: baseline;
-    gap: 10px;
+    align-items: center;
+    gap: 14px;
     width: fit-content;
     max-width: 48ch;
     margin-top: 20px;
@@ -300,6 +308,23 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
     animation: ch-in 0.7s var(--ease-out) 0.98s both;
     transition: color 180ms var(--ease-out), border-color 180ms var(--ease-out),
       text-decoration-color 180ms var(--ease-out);
+  }
+
+  .consultant-update img {
+    flex: 0 0 82px;
+    width: 82px;
+    height: 82px;
+    border-radius: 8px;
+  }
+
+  .consultant-copy {
+    display: grid;
+    gap: 3px;
+  }
+
+  .consultant-arrow {
+    flex: 0 0 auto;
+    margin-left: auto;
   }
 
   .consultant-update:hover {
@@ -501,8 +526,14 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
     }
 
     .consultant-update {
-      align-items: flex-start;
-      flex-wrap: wrap;
+      gap: 10px;
+      padding: 9px 10px;
+    }
+
+    .consultant-update img {
+      flex-basis: 68px;
+      width: 68px;
+      height: 68px;
     }
   }
 
