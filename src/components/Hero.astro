@@ -71,6 +71,17 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
         and teachers who deliver results.
       </p>
 
+      <a
+        class="consultant-update"
+        href="https://www.notion.com/@languagelayouts"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="consultant-kicker">Consultant update</span>
+        <span>Every Notion consultant test passed — formal consultant status is next.</span>
+        <span aria-hidden="true">&nearr;</span>
+      </a>
+
       <div class="hero-actions">
         <a href="#templates" class="btn btn-primary" id="hero-cta">Get Templates</a>
         <a href="#framework" class="hero-link">
@@ -269,6 +280,44 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
     animation: ch-in 0.7s var(--ease-out) 0.9s both;
   }
 
+  .consultant-update {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    width: fit-content;
+    max-width: 48ch;
+    margin-top: 20px;
+    padding: 10px 14px;
+    border: 1px solid var(--terra);
+    border-radius: var(--radius-sm);
+    background: var(--terra-tint);
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    animation: ch-in 0.7s var(--ease-out) 0.98s both;
+    transition: color 180ms var(--ease-out), border-color 180ms var(--ease-out),
+      text-decoration-color 180ms var(--ease-out);
+  }
+
+  .consultant-update:hover {
+    color: var(--terra-deep);
+    border-color: var(--terra-deep);
+    text-decoration-color: currentColor;
+  }
+
+  .consultant-kicker {
+    flex: 0 0 auto;
+    color: var(--terra-deep);
+    font-family: var(--font-heading);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
   .hero-actions {
     display: flex;
     align-items: center;
@@ -421,6 +470,11 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
       margin: 0 auto;
     }
 
+    .consultant-update {
+      justify-content: center;
+      text-align: left;
+    }
+
     .hero-actions {
       justify-content: center;
       flex-wrap: wrap;
@@ -444,6 +498,11 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
 
     .glyph {
       opacity: 0.1;
+    }
+
+    .consultant-update {
+      align-items: flex-start;
+      flex-wrap: wrap;
     }
   }
 
@@ -470,6 +529,7 @@ const greetings = ['Hello!', '¡Hola!', 'สวัสดี!', 'Bonjour!', 'こ�
     .ch,
     .greeting-chip,
     .hero-subtitle,
+    .consultant-update,
     .hero-actions,
     .hero-annotation,
     .video-frame {
