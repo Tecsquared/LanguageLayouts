@@ -82,6 +82,12 @@ import { connectLinks } from '../data/templates';
     rotate: 0.5deg;
   }
 
+  /* An odd last card spans the full row */
+  .connect-cards > .reveal:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    rotate: 0deg;
+  }
+
   @media (max-width: 768px) {
     .stay-connected-grid {
       grid-template-columns: 1fr;

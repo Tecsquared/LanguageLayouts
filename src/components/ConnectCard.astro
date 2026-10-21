@@ -14,6 +14,7 @@ const iconColors: Record<string, string> = {
   youtube: 'var(--mfo)',
   newsletter: 'var(--mfi)',
   contact: 'var(--fd)',
+  story: 'var(--lfl)',
 };
 
 const iconColor = iconColors[icon] || 'var(--terra)';
@@ -43,6 +44,12 @@ const iconColor = iconColors[icon] || 'var(--terra)';
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1.1L3 20l1.2-4.6A8.5 8.5 0 1 1 21 11.5Z" />
         <path d="M8.5 11.5h.01M12.5 11.5h.01M16.5 11.5h.01" stroke-width="2.4" />
+      </svg>
+    )}
+    {icon === 'story' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z" />
+        <path d="M12 6.5v13" />
       </svg>
     )}
   </span>

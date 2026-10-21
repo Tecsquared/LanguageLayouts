@@ -209,4 +209,10 @@ export const connectLinks = [
     subtitle: 'Say Hello!',
     href: 'mailto:damienmherlihy@gmail.com',
   },
+  {
+    icon: 'story',
+    title: 'Cliffhanger English',
+    subtitle: 'Stories for English learners. Free during the alpha.',
+    href: 'https://app.cliffhangerenglish.com/books/story-01-ghost',
+  },
 ];
