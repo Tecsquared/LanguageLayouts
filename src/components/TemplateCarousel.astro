@@ -32,9 +32,46 @@ import { templates } from '../data/templates';
 
     <p class="carousel-hint hand-note" aria-hidden="true">give it a spin</p>
   </div>
+
+  <div class="container">
+    <p class="notion-start">
+      New to Notion?
+      <a href="https://app.notion.com/?consultant_land_id=a0b5c893-9e94-4226-a3c1-5c27c83f2b76" target="_blank" rel="sponsored noopener">Start a free workspace</a>,
+      then add any template to it.
+      <span class="notion-start-note">Referral link: Notion may pay me a small commission if you later upgrade. It costs you nothing.</span>
+    </p>
+  </div>
 </section>
 
 <style>
+  .notion-start {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 56ch;
+    margin: 28px auto 72px;
+    text-wrap: pretty;
+  }
+
+  .notion-start a {
+    color: var(--terra);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .notion-start a:hover {
+    color: var(--terra-deep);
+  }
+
+  .notion-start-note {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
   .carousel-3d-clip {
     overflow: visible;
   }
