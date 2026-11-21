@@ -37,6 +37,8 @@ export const templates = [
   {
     name: 'Language Learning Planner',
     description: 'Plan and track balanced study across all four strands so you always know what to work on next.',
+    audience: 'learner',
+    needs: ['planning'],
     tags: [
       { text: 'Learner', color: MFI_GREEN },
       { text: 'Free', color: TERRA },
@@ -52,6 +54,8 @@ export const templates = [
   {
     name: 'Lesson Planner',
     description: 'Plan four-strand lessons that balance input, output, language focus, and fluency in every class.',
+    audience: 'teacher',
+    needs: ['planning'],
     tags: [
       { text: 'Teacher', color: FD_BLUE },
       { text: 'Free', color: TERRA },
@@ -64,6 +68,8 @@ export const templates = [
   {
     name: 'Vocab Tracker',
     description: 'Build conversational confidence through word cards, spaced repetition, and context-rich vocabulary learning.',
+    audience: 'learner',
+    needs: ['vocabulary'],
     tags: [
       { text: 'Learner', color: MFI_GREEN },
       { text: 'Paid', color: LFL_GOLD },
@@ -76,6 +82,8 @@ export const templates = [
   {
     name: 'Language Learning Plus',
     description: 'Everything in the free planner plus vocab recording, language learning resources, and goal setting tools.',
+    audience: 'learner',
+    needs: ['planning', 'vocabulary', 'all-in-one'],
     tags: [
       { text: 'Learner', color: MFI_GREEN },
       { text: 'Paid', color: LFL_GOLD },
@@ -88,6 +96,8 @@ export const templates = [
   {
     name: 'Lesson Planner Plus',
     description: 'A complete teaching workspace for planning, tracking student progress, managing homework, and task management.',
+    audience: 'teacher',
+    needs: ['planning', 'all-in-one'],
     tags: [
       { text: 'Teacher', color: FD_BLUE },
       { text: 'Paid', color: LFL_GOLD },
@@ -100,6 +110,8 @@ export const templates = [
   {
     name: 'The Online Language Teacher',
     description: 'The total online language tutor solution.',
+    audience: 'teacher',
+    needs: ['planning', 'all-in-one'],
     tags: [
       { text: 'Teacher', color: FD_BLUE },
       { text: 'Paid', color: LFL_GOLD },
